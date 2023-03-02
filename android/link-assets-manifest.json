@@ -1,0 +1,77 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Labrada-Black.ttf",
+      "sha1": "59ba772696e930993b0d5f477f81624d72d1e1a5"
+    },
+    {
+      "path": "assets/fonts/Labrada-BlackItalic.ttf",
+      "sha1": "e9e9a68387c4842048c26dd3d357e51416a22bb2"
+    },
+    {
+      "path": "assets/fonts/Labrada-Bold.ttf",
+      "sha1": "475d9ad2241e52bc37696b160cf7dc85b61db607"
+    },
+    {
+      "path": "assets/fonts/Labrada-BoldItalic.ttf",
+      "sha1": "3a550ba75d99d5ce8f484443ee47662e7af5ae58"
+    },
+    {
+      "path": "assets/fonts/Labrada-ExtraBold.ttf",
+      "sha1": "922859276e9ceb118e68e94304edf057d2595e4d"
+    },
+    {
+      "path": "assets/fonts/Labrada-ExtraBoldItalic.ttf",
+      "sha1": "c5b7fbe34e422daaccb0d9e24df19c1bcf65aef9"
+    },
+    {
+      "path": "assets/fonts/Labrada-ExtraLight.ttf",
+      "sha1": "8a37d4403219fd5b05fb1ea8d554033b9b57b3cb"
+    },
+    {
+      "path": "assets/fonts/Labrada-ExtraLightItalic.ttf",
+      "sha1": "64fd18635e150efbbea21c915f5a3c1c9353eeaf"
+    },
+    {
+      "path": "assets/fonts/Labrada-Italic.ttf",
+      "sha1": "af0ec45d8b331d834beee5c62fcd36b714f33869"
+    },
+    {
+      "path": "assets/fonts/Labrada-Light.ttf",
+      "sha1": "12cb419380ea55d0d167aaf38f2b05fa10749501"
+    },
+    {
+      "path": "assets/fonts/Labrada-LightItalic.ttf",
+      "sha1": "be9c0d8f371af95d05b6496d59fcab4a5ff2150d"
+    },
+    {
+      "path": "assets/fonts/Labrada-Medium.ttf",
+      "sha1": "1a6f41d068f2ab26d41a2d88d44b26a1b23c83cc"
+    },
+    {
+      "path": "assets/fonts/Labrada-MediumItalic.ttf",
+      "sha1": "4366a93d6738992a6a211bcc75a777969601dc46"
+    },
+    {
+      "path": "assets/fonts/Labrada-Regular.ttf",
+      "sha1": "2fa56042fc41ba2f738fa4135584fefe9c89f4c6"
+    },
+    {
+      "path": "assets/fonts/Labrada-SemiBold.ttf",
+      "sha1": "8e9d26b458aa10f3230f211d0d57fa61064c6820"
+    },
+    {
+      "path": "assets/fonts/Labrada-SemiBoldItalic.ttf",
+      "sha1": "4637705baabdaf21a00f8e6337a693ed21b5bc3c"
+    },
+    {
+      "path": "assets/fonts/Labrada-Thin.ttf",
+      "sha1": "0656bf2fb26f09d38d31e06af7237fa4760af0da"
+    },
+    {
+      "path": "assets/fonts/Labrada-ThinItalic.ttf",
+      "sha1": "1e23b42888c85a2fe66a94ecb9dc4bbfeb193798"
+    }
+  ]
+}
