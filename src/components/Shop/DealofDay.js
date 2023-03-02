@@ -1,14 +1,31 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
+import React, { useEffect, useState, } from 'react'
 import { Image } from 'react-native-animatable'
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
+import { ViewSingleProduct } from '../../redux/reducer/Product'
+import { addToCart } from '../../redux/reducer/Reducers'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux'
 
-export default function DealofDay() {
+export default function DealofDay({navigation}) {
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+
+    const item = useSelector(state => state.data.data);
+    const FetchSingleProducts = (item) => {
+      return (
+        dispatch(ViewSingleProduct(item))
+        // console.log(id)
+      )
+    }
+
+    const addItemToCart = item => {
+        dispatch(addToCart(item));
+      };
 
 
     useEffect(() => {
@@ -31,16 +48,28 @@ export default function DealofDay() {
         return(
 
             <View style={[styles.ImageBox, styles.shadowProp]}>
-            <View style={styles.MainImgBox}>
+                <Pressable  onPress={() =>
+                navigation.navigate(
+                  `Singleproduct`,
+                  FetchSingleProducts(item)
+                )
+              }>
+            <View style={styles.MainImgBox}
+            
+            >
                  <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
              </View>
+             </Pressable>
              <View style={{ flex: 1, flexDirection: "row" }}>
                  <View style={{width:100}}>
                      <Text style={styles.name}>{item.name}</Text>
                      <Text></Text>
                      <Text style={styles.name}>${price}</Text>
                  </View>
-                 <TouchableOpacity>
+                 <TouchableOpacity
+                                      onPress={() => addItemToCart(item)}
+
+                 >
                      <View style={styles.iconBox}>
                          <Icon name="add-shopping-cart" size={30} color="white" />
                      </View>
@@ -53,7 +82,7 @@ export default function DealofDay() {
     }
     return (
         <View style={styles.conatiner}>
-            <Text style={styles.coupons}> Deal of Day</Text>
+            <Text style={styles.coupons} onPress={()=>navigation.navigate("Singleproduct")}> Deal of Day</Text>
             <View style={{ flex: 1, width: "95%", alignSelf: "center", flexDirection: "row" }}>
 
 {

@@ -1,14 +1,30 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Image } from 'react-native-animatable'
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
+import { useDispatch,useSelector } from 'react-redux'
+import { ViewSingleProduct } from '../../redux/reducer/Product'
+import { addToCart } from '../../redux/reducer/Reducers'
 
 export default function Tranding() {
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+
+    const item = useSelector(state => state.data.data);
+    const FetchSingleProducts = (item) => {
+      return (
+        dispatch(ViewSingleProduct(item))
+        // console.log(id)
+      )
+    }
+
+    const addItemToCart = item => {
+        dispatch(addToCart(item));
+      };
 
 
     useEffect(() => {
@@ -30,16 +46,25 @@ export default function Tranding() {
         return(
 
             <View style={[styles.ImageBox, styles.shadowProp]}>
+                <Pressable  onPress={() =>
+                navigation.navigate(
+                  `Singleproduct`,
+                  FetchSingleProducts(item)
+                )
+              }>
             <View style={styles.MainImgBox}>
                  <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
              </View>
+             </Pressable>
              <View style={{ flex: 1, flexDirection: "row" }}>
                  <View style={{width:100}}>
                      <Text style={styles.name}>{item.name}</Text>
                      <Text></Text>
                      <Text style={styles.name}>${price}</Text>
                  </View>
-                 <TouchableOpacity>
+                 <TouchableOpacity
+                  onPress={() => addItemToCart(item)}
+                 >
                      <View style={styles.iconBox}>
                          <Icon name="add-shopping-cart" size={30} color="white" />
                      </View>

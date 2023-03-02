@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 import React, { useState, useRef } from 'react';
 import { Text, View, TouchableOpacity, Animated,StyleSheet } from 'react-native';
 import Coupons from '../components/Shop/Coupons'
+import SingleProduct from '../components/Shop/SingleProduct'
 
 
 
@@ -138,6 +139,7 @@ const HomeScreenStack = ({navigation}) => {
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
       <Stack.Screen name="Coupons" component={Coupons}/>
+      <Stack.Screen name="Singleproduct" component={SingleProduct}/>
     </Stack.Navigator>
   );
 };

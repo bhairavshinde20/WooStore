@@ -21,7 +21,10 @@ export default function Categories({navigation}) {
     const MainNewProductApi = newProductApi[0];
     // console.log(MainNewProductApi)
     const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={()=> navigation.navigate("Explore")}>
+        // navigation.navigate("Explore")
+        <TouchableOpacity 
+onPress={()=>navigation.navigate("Explore")}
+>
         <View style={styles.catBox}>
             <View style={styles.IMGbox}>
                 <Image
