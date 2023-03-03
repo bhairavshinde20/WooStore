@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import Skeleton from '@thevsstech/react-native-skeleton';
 
 export default function Categories({ navigation }) {
     const [newproduct, setNewProduct] = useState([]);
@@ -25,8 +26,7 @@ export default function Categories({ navigation }) {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            onPress={() => navigation.navigate("Explore")}
-        >
+            onPress={() => navigation.navigate("Explore")}>
             <View style={styles.catBox}>
                 <View style={styles.IMGbox}>
                     <Image
@@ -44,15 +44,26 @@ export default function Categories({ navigation }) {
     return (
         <View style={styles.container}>
             <Text style={styles.Categories}>Categories</Text>
-            {
-                isLoading ?
-                    <Text style={styles.Categories}>Loading</Text>
-                    : <FlatList
-                        numColumns={4}
-                        data={MainNewProductApi}
-                        renderItem={renderItem}
-                    />
-            }
+            <View style={{ width: "100%", alignContent: "center", justifyContent: "center", alignItems: "center" }}>
+                {
+                    isLoading ?
+                        <Skeleton>
+                            <Skeleton.Item flexDirection="row" padding={20} marginLeft={20} >
+                                <Skeleton.Item width={100} height={100} marginLeft={5} borderRadius={50} marginTop={20} />
+                                <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
+                                <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
+                                <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
+
+                            </Skeleton.Item>
+                        </Skeleton>
+                        :
+                        <FlatList
+                            numColumns={4}
+                            data={MainNewProductApi}
+                            renderItem={renderItem}
+                        />
+                }
+            </View>
         </View>
     )
 }

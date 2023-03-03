@@ -9,6 +9,8 @@ import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux'
+import Skeleton from '@thevsstech/react-native-skeleton';
+
 
 export default function DealofDay({ navigation }) {
     const [featureddata, setFeaturedData] = useState([]);
@@ -86,7 +88,16 @@ export default function DealofDay({ navigation }) {
             <View style={{ flex: 1, width: "95%", alignSelf: "center", flexDirection: "row" }}>
 
                 {
-                    isLoading ? <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text> :
+                    isLoading ?
+                    //  <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text> 
+                    <Skeleton>
+                    <Skeleton.Item flexDirection="row" >
+                      <Skeleton.Item alignItems="center" width={210} height={320}
+                        marginLeft={20} borderRadius={20} marginTop={20} />
+                      <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
+                    </Skeleton.Item>
+                  </Skeleton>
+                    :
                         <FlatList
                             data={mainfeaturedapidata}
                             horizontal

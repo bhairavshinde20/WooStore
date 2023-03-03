@@ -2,6 +2,9 @@ import { View, Text, StyleSheet } from 'react-native'
 import { ImageSlider } from 'react-native-image-slider-banner'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import Skeleton from '@thevsstech/react-native-skeleton';
+import Skeleton from '@thevsstech/react-native-skeleton';
+
 
 export default function Slider() {
     const [isLoading, setLoading] = useState(true);
@@ -28,7 +31,10 @@ export default function Slider() {
         <View style={styles.container}>
             {
                 isLoading ?
-                    <Text style={styles.loading}>Loading</Text>
+                    // <Text style={styles.loading}>Loading</Text>
+                    <Skeleton>
+                    <Skeleton.Item  width="100%" height={260} />
+                  </Skeleton> 
                     :
                     <ImageSlider
                         caroselImageStyle={styles.previewImageContainer}
