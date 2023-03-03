@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Image } from 'react-native-animatable'
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 export default function Explore({ navigation }) {
@@ -33,8 +34,8 @@ export default function Explore({ navigation }) {
     <View>
       {/* <Text style={styles.coupons}> Deal of Day</Text> */}
       <View style={styles.conatiner}>
-        <Text style={styles.coupons}> Deal of Day</Text>
-        <View style={{ flex: 1, width: "100%", alignSelf: "center", flexDirection: "row" }}>
+        <Text style={styles.coupons}>Product</Text>
+        <View style={{ flex: 1, width: "100%", alignSelf: "center", flexDirection: 'row' }}>
 
            <View style={[styles.ImageBox, styles.shadowProp]}>
                         <View style={styles.MainImgBox}>
@@ -52,26 +53,28 @@ export default function Explore({ navigation }) {
                             </View>
                           </TouchableOpacity>
                         </View>
-                      </View> 
-          {/* {
-            isLoading ? <Text styles={{ color: "black" }}>Loading</Text> :
-
+                      </View>  
+ {/* {
+            isLoading ? <Text styles={{ color: "black" }}>Loading...</Text> :
+            
               <FlatList
-                numColumns={2}
                 data={mainfeaturedapidata}
-                // keyExtractor={(item, index) => item.id} 
                 renderItem={({ item }, index) => {
-
+                  if (item) {
+                    let price = parseFloat(item.price).toFixed(2);
                   return (
+                    <SafeAreaView>
                     <View style={[styles.ImageBox, styles.shadowProp]}>
                       <View style={styles.MainImgBox}>
-                        <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
+                        <Image  source={{ uri: item.base_image.small_image_url }}
+                        // source={require("../../assets/mainlogo.jpeg")} 
+                        style={styles.img} />
                       </View>
                       <View style={{ flex: 1, flexDirection: "row" }}>
                         <View style={{ width: 100 }}>
-                          <Text></Text>
-                          <Text></Text>
                           <Text style={styles.name}>{item.name}</Text>
+                          <Text></Text>
+                          <Text style={styles.name}>{price}</Text>
                         </View>
                         <TouchableOpacity>
                           <View style={styles.iconBox}>
@@ -80,10 +83,16 @@ export default function Explore({ navigation }) {
                         </TouchableOpacity>
                       </View>
                     </View>
+                    </SafeAreaView>
                   )
+                  }
+                  
+                
                 }}
+                numColumns={2}
+                keyExtractor={(item, index) => item.id} 
               />
-          } */}
+          }   */}
 
 
 
@@ -95,7 +104,7 @@ export default function Explore({ navigation }) {
 
 
 
-          <View style={[styles.ImageBox, styles.shadowProp]}>
+<View style={[styles.ImageBox, styles.shadowProp]}>
                         <View style={styles.MainImgBox}>
                           <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
                         </View>
@@ -112,6 +121,7 @@ export default function Explore({ navigation }) {
                           </TouchableOpacity>
                         </View>
                       </View> 
+
         </View>
       </View>
     </View>
@@ -119,14 +129,15 @@ export default function Explore({ navigation }) {
 }
 const styles = StyleSheet.create({
   conatiner: {
-    flex: 1
+    // flex: 1
   },
   coupons: {
     fontSize: 25,
     color: "black",
     fontFamily: "Labrada-Bold",
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
+    position:'relative'
   },
   ImageBox: {
     width: 230,

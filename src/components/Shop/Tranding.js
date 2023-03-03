@@ -9,7 +9,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 
-export default function Tranding() {
+export default function Tranding(navigation) {
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const dispatch = useDispatch();

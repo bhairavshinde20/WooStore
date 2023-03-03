@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 
-export default function Categories({navigation}) {
+export default function Categories({ navigation }) {
     const [newproduct, setNewProduct] = useState([]);
     const [isLoading, setLoading] = useState(true);
     // ?new&limit=12
@@ -20,22 +20,27 @@ export default function Categories({navigation}) {
     newProductApi.push(newproduct);
     const MainNewProductApi = newProductApi[0];
     // console.log(MainNewProductApi)
+
+
+
     const renderItem = ({ item }) => (
-        // navigation.navigate("Explore")
-        <TouchableOpacity 
-onPress={()=>navigation.navigate("Explore")}
->
-        <View style={styles.catBox}>
-            <View style={styles.IMGbox}>
-                <Image
-                    source={{ uri: item.base_image.small_image_url }}
-                    // source={require("../../assets/mainlogo.jpeg")}
-                    style={styles.img} />
+        <TouchableOpacity
+            onPress={() => navigation.navigate("Explore")}
+        >
+            <View style={styles.catBox}>
+                <View style={styles.IMGbox}>
+                    <Image
+                        source={{ uri: item.base_image.small_image_url }}
+                        // source={require("../../assets/mainlogo.jpeg")}
+                        style={styles.img} />
+                </View>
+                <Text style={styles.title}>{item.category_name}</Text>
             </View>
-            <Text style={styles.title}>{item.category_name}</Text>
-        </View>
-    </TouchableOpacity>
-        );
+        </TouchableOpacity>
+    );
+
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.Categories}>Categories</Text>

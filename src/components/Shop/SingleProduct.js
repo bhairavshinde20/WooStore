@@ -4,11 +4,11 @@ import axios from 'axios';
 import { ImageSlider } from 'react-native-image-slider-banner'
 import { useSelector } from 'react-redux';
 
-export default function SingleProduct({navigation}) {
+export default function SingleProduct({ navigation }) {
     const item = useSelector(state => state.cart.cart);
     // console.log(item);
     return (
-        <View>
+        <View style={styles.container}>
             <Text style={styles.loading}>Single product</Text>
         </View>
     )

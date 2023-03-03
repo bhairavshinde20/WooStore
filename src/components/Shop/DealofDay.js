@@ -10,22 +10,22 @@ import { addToCart } from '../../redux/reducer/Reducers'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux'
 
-export default function DealofDay({navigation}) {
+export default function DealofDay({ navigation }) {
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
     const item = useSelector(state => state.data.data);
     const FetchSingleProducts = (item) => {
-      return (
-        dispatch(ViewSingleProduct(item))
-        // console.log(id)
-      )
+        return (
+            dispatch(ViewSingleProduct(item))
+            // console.log(id)
+        )
     }
 
     const addItemToCart = item => {
         dispatch(addToCart(item));
-      };
+    };
 
 
     useEffect(() => {
@@ -45,55 +45,55 @@ export default function DealofDay({navigation}) {
     const renderItem = ({ item }) => {
         if (item) {
             let price = parseFloat(item.price).toFixed(2);
-        return(
+            return (
 
-            <View style={[styles.ImageBox, styles.shadowProp]}>
-                <Pressable  onPress={() =>
-                navigation.navigate(
-                  `Singleproduct`,
-                  FetchSingleProducts(item)
-                )
-              }>
-            <View style={styles.MainImgBox}
-            
-            >
-                 <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
-             </View>
-             </Pressable>
-             <View style={{ flex: 1, flexDirection: "row" }}>
-                 <View style={{width:100}}>
-                     <Text style={styles.name}>{item.name}</Text>
-                     <Text></Text>
-                     <Text style={styles.name}>${price}</Text>
-                 </View>
-                 <TouchableOpacity
-                                      onPress={() => addItemToCart(item)}
+                <View style={[styles.ImageBox, styles.shadowProp]}>
+                    <Pressable onPress={() =>
+                        navigation.navigate(
+                            `Singleproduct`,
+                            FetchSingleProducts(item)
+                        )
+                    }>
+                        <View style={styles.MainImgBox}
 
-                 >
-                     <View style={styles.iconBox}>
-                         <Icon name="add-shopping-cart" size={30} color="white" />
-                     </View>
-                 </TouchableOpacity>
-             </View>
-         </View>
+                        >
+                            <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
+                        </View>
+                    </Pressable>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                        <View style={{ width: 100 }}>
+                            <Text style={styles.name}>{item.name}</Text>
+                            <Text></Text>
+                            <Text style={styles.name}>${price}</Text>
+                        </View>
+                        <TouchableOpacity
+                            onPress={() => addItemToCart(item)}
 
-        )
+                        >
+                            <View style={styles.iconBox}>
+                                <Icon name="add-shopping-cart" size={30} color="white" />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+            )
         }
     }
     return (
         <View style={styles.conatiner}>
-            <Text style={styles.coupons} onPress={()=>navigation.navigate("Singleproduct")}> Deal of Day</Text>
+            <Text style={styles.coupons} onPress={() => navigation.navigate("Singleproduct")}> Deal of Day</Text>
             <View style={{ flex: 1, width: "95%", alignSelf: "center", flexDirection: "row" }}>
 
-{
-    isLoading ? <Text style={{color:"black",fontSize:20}}> Loading..</Text> :
-                <FlatList
-                data={mainfeaturedapidata}
-                horizontal
-                keyExtractor={(item, index) => item.id}
-                renderItem={renderItem}
-       />
-}
+                {
+                    isLoading ? <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text> :
+                        <FlatList
+                            data={mainfeaturedapidata}
+                            horizontal
+                            keyExtractor={(item, index) => item.id}
+                            renderItem={renderItem}
+                        />
+                }
             </View>
         </View>
     )
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         color: "black",
         fontFamily: "Labrada-Bold",
         marginLeft: 10,
-        marginTop:10
+        marginTop: 10
     },
     ImageBox: {
         width: 210,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         // elevation: 10,
         borderWidth: 1,
         borderColor: "lightgray",
-        marginLeft:15
+        marginLeft: 15
     },
     shadowProp: {
         shadowOffset: { width: -2, height: 4 },
