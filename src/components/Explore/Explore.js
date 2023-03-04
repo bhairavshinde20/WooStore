@@ -14,7 +14,7 @@ export default function Explore({ navigation }) {
 
 
   useEffect(() => {
-    axios.get('https://parind.online/parind/public/api/products?featured')
+    axios.get('https://parind.online/parind/public/api/products?featured&limit=12')
       .then(async (res) => {
         const featuredProduct = await res.data.data; ``
         // console.log(featuredProduct);
@@ -35,9 +35,9 @@ export default function Explore({ navigation }) {
       {/* <Text style={styles.coupons}> Deal of Day</Text> */}
       <View style={styles.conatiner}>
         <Text style={styles.coupons}>Product</Text>
-        <View style={{ flex: 1, width: "100%", alignSelf: "center", flexDirection: 'row' }}>
+        <View style={{  width: "100%", alignSelf: "center", flexDirection: 'row' }}>
 
-           <View style={[styles.ImageBox, styles.shadowProp]}>
+           {/* <View style={[styles.ImageBox, styles.shadowProp]}>
                         <View style={styles.MainImgBox}>
                           <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
                         </View>
@@ -53,20 +53,19 @@ export default function Explore({ navigation }) {
                             </View>
                           </TouchableOpacity>
                         </View>
-                      </View>  
- {/* {
-            isLoading ? <Text styles={{ color: "black" }}>Loading...</Text> :
+                      </View>   */}
+  {
+            isLoading ? <Text styles={{ color: "black",fontSize:30 }}>Loading...</Text> :
             
               <FlatList
                 data={mainfeaturedapidata}
                 renderItem={({ item }, index) => {
-                  if (item) {
-                    let price = parseFloat(item.price).toFixed(2);
+                  
                   return (
-                    <SafeAreaView>
                     <View style={[styles.ImageBox, styles.shadowProp]}>
                       <View style={styles.MainImgBox}>
-                        <Image  source={{ uri: item.base_image.small_image_url }}
+                        <Image  
+                        source={{ uri: item.base_image.small_image_url }}
                         // source={require("../../assets/mainlogo.jpeg")} 
                         style={styles.img} />
                       </View>
@@ -74,7 +73,7 @@ export default function Explore({ navigation }) {
                         <View style={{ width: 100 }}>
                           <Text style={styles.name}>{item.name}</Text>
                           <Text></Text>
-                          <Text style={styles.name}>{price}</Text>
+                          {/* <Text style={styles.name}></Text> */}
                         </View>
                         <TouchableOpacity>
                           <View style={styles.iconBox}>
@@ -83,16 +82,15 @@ export default function Explore({ navigation }) {
                         </TouchableOpacity>
                       </View>
                     </View>
-                    </SafeAreaView>
                   )
-                  }
+                  
                   
                 
                 }}
                 numColumns={2}
                 keyExtractor={(item, index) => item.id} 
               />
-          }   */}
+          }   
 
 
 
@@ -104,7 +102,7 @@ export default function Explore({ navigation }) {
 
 
 
-<View style={[styles.ImageBox, styles.shadowProp]}>
+{/* <View style={[styles.ImageBox, styles.shadowProp]}>
                         <View style={styles.MainImgBox}>
                           <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
                         </View>
@@ -120,7 +118,7 @@ export default function Explore({ navigation }) {
                             </View>
                           </TouchableOpacity>
                         </View>
-                      </View> 
+                      </View>  */}
 
         </View>
       </View>
