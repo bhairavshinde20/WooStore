@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image ,TouchableOpacity} from 'react-native'
-import React,{useState,useRef} from 'react'
+import { View, Text, StyleSheet, Image, TouchableOpacity,ScrollView } from 'react-native'
+import React, { useState, useRef } from 'react'
 // import styles from './CartStyle'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../redux/reducer/Reducers';
@@ -15,7 +15,7 @@ import CheckOut from './CheckOut';
 const Stack = createStackNavigator();
 
 
-export default function Cart({navigation}) {
+export default function Cart({ navigation }) {
   const dispatch = useDispatch();
 
   const item = useSelector(state => state.cart.cart);
@@ -34,6 +34,7 @@ export default function Cart({navigation}) {
     }, 100);
   }
   return (
+    <ScrollView>
     <View style={{ flex: 1, height: 900 }}>
       <View style={styles.AddArrBox}>
         <View style={styles.Add}>
@@ -104,58 +105,58 @@ export default function Cart({navigation}) {
         </View>
 
       </View>
-<BottomSheetModalProvider>
-<View style={styles.PlaceBox}>
+      <BottomSheetModalProvider>
+        <View style={styles.PlaceBox}>
 
-<TouchableOpacity style={styles.Add} onPress={handlePresentModal}>
-        {/* <View> */}
-          <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Place Order</Text>
-        {/* </View> */}
-        </TouchableOpacity>
-        <BottomSheetModal
+          <TouchableOpacity style={styles.Add} onPress={handlePresentModal}>
+            {/* <View> */}
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Place Order</Text>
+            {/* </View> */}
+          </TouchableOpacity>
+          <BottomSheetModal
             ref={bottomSheetModalRef}
             index={0}
             snapPoints={snapPoints}
             backgroundStyle={{ borderRadius: 50 }}
             onDismiss={() => setIsOpen(false)}>
-             {/* <Stack.Navigator
+            {/* <Stack.Navigator
               initialRouteName="SignIn"
               screenOptions={{ headerShown: false }}>
               <Stack.Screen name="CheckOut" component={CheckOut} />
             </Stack.Navigator> */}
-            <View style={{padding:20}}>
-            <Text style={{color:"black",fontFamily: "Labrada-Bold", fontSize: 30}}>Checkout</Text>
-            <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
-            <View style={{ width: "100%",height:35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
-          <Text style={{ color: "black",fontSize: 17 }}>Payment</Text>
-          {/* <Text style={{ color: "black" }}> $ 4.47</Text> */}
-          <View style={{flexDirection:"row"}}>
-          <Icon name="payment" size={25} color="black" />
-          <Text>slnin</Text>
-          <Icon name="arrow-forward-ios" size={25} color="black" />
+            <View style={{ padding: 20 }}>
+              <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>Checkout</Text>
+              <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
+              <View style={{ width: "100%", height: 35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
+                <Text style={{ color: "black", fontSize: 17 }}>Payment</Text>
+                {/* <Text style={{ color: "black" }}> $ 4.47</Text> */}
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="payment" size={25} color="black" />
+                  <Text>slnin</Text>
+                  <Icon name="arrow-forward-ios" size={25} color="black" />
 
-          </View>
-        </View>
-        <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
+                </View>
+              </View>
+              <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
 
-        <View style={{ width: "100%",height:35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
-          <Text style={{ color: "black",  fontSize: 17}}>Total Cost</Text>
-          <Text style={{ color: "black", fontSize: 17}}> $ 4.47</Text>
-        </View>
-        <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
-        <Text style={{ color: "gray",fontFamily: "Labrada-Bold", fontSize: 15}}>By placing an order you agree to out Terms And Condation</Text>
-        <TouchableOpacity style={styles.popupPlace} onPress={()=>navigation.navigate("Cart")}>
-        <View>
-          <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Place Order</Text>
-        </View>
-        </TouchableOpacity>
+              <View style={{ width: "100%", height: 35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
+                <Text style={{ color: "black", fontSize: 17 }}>Total Cost</Text>
+                <Text style={{ color: "black", fontSize: 17 }}> $ 4.47</Text>
+              </View>
+              <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
+              <Text style={{ color: "gray", fontFamily: "Labrada-Bold", fontSize: 15 }}>By placing an order you agree to out Terms And Condation</Text>
+              <TouchableOpacity style={styles.popupPlace} onPress={() => navigation.navigate("Cart")}>
+                <View>
+                  <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Place Order</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </BottomSheetModal>
-          </View>
+        </View>
 
       </BottomSheetModalProvider>
-
     </View>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({
@@ -266,10 +267,10 @@ const styles = StyleSheet.create({
     left: 0,
     position: "relative"
   },
-  popupPlace:{
+  popupPlace: {
     width: "100%",
     height: 45,
-    marginTop:20,
+    marginTop: 20,
     backgroundColor: "#52b372",
     borderRadius: 20,
     color: "white",

@@ -1,7 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet,Image, Pressable ,TouchableOpacity,FlatList} from 'react-native'
 import React from 'react'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { Image } from 'react-native-animatable'
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 export default function NewCoupons({ navigation }) {
@@ -35,8 +33,8 @@ export default function NewCoupons({ navigation }) {
         <View >
             <View style={styles.container2}>
                 <Text style={styles.coupons}>Coupons for you</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("Coupons")}>
-                    <Text style={styles.see}>See All</Text>
+                <TouchableOpacity>
+                    <Text onPress={()=> navigation.navigate('Coupons')} style={styles.see}>See All</Text>
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1, width: "95%", alignSelf: "center" }}>
@@ -56,7 +54,6 @@ export default function NewCoupons({ navigation }) {
                                         <Text style={styles.null}>{item.title} {item.name}</Text>
                                     </View>
                                 </View>
-
                             </View>
                         )
 

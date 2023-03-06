@@ -5,27 +5,27 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 import Skeleton from '@thevsstech/react-native-skeleton';
 
-export default function Tranding(navigation) {
+export default function Tranding({ navigation }) {
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
     const item = useSelector(state => state.data.data);
     const FetchSingleProducts = (item) => {
-      return (
-        dispatch(ViewSingleProduct(item))
-        // console.log(id)
-      )
+        return (
+            dispatch(ViewSingleProduct(item))
+            // console.log(id)
+        )
     }
 
     const addItemToCart = item => {
         dispatch(addToCart(item));
-      };
+    };
 
 
     useEffect(() => {
@@ -41,39 +41,40 @@ export default function Tranding(navigation) {
     let newfeaturedapidata = [];
     newfeaturedapidata.push(featureddata)
     const mainfeaturedapidata = newfeaturedapidata[0];
+
     const renderItem = ({ item }) => {
         if (item) {
             let price = parseFloat(item.price).toFixed(2);
-        return(
+            return (
 
-            <View style={[styles.ImageBox, styles.shadowProp]}>
-                <Pressable  onPress={() =>
-                navigation.navigate(
-                  `Singleproduct`,
-                  FetchSingleProducts(item)
-                )
-              }>
-            <View style={styles.MainImgBox}>
-                 <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
-             </View>
-             </Pressable>
-             <View style={{ flex: 1, flexDirection: "row" }}>
-                 <View style={{width:100}}>
-                     <Text style={styles.name}>{item.name}</Text>
-                     <Text></Text>
-                     <Text style={styles.name}>${price}</Text>
-                 </View>
-                 <TouchableOpacity
-                  onPress={() => addItemToCart(item)}
-                 >
-                     <View style={styles.iconBox}>
-                         <Icon name="add-shopping-cart" size={30} color="white" />
-                     </View>
-                 </TouchableOpacity>
-             </View>
-         </View>
+                <View style={[styles.ImageBox, styles.shadowProp]}>
+                    <Pressable onPress={() =>
+                        navigation.navigate(
+                            `Singleproduct`,
+                            FetchSingleProducts(item)
+                        )
+                    }>
+                        <View style={styles.MainImgBox}>
+                            <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
+                        </View>
+                    </Pressable>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                        <View style={{ width: 100 }}>
+                            <Text style={styles.name}>{item.name}</Text>
+                            <Text></Text>
+                            <Text style={styles.name}>${price}</Text>
+                        </View>
+                        <TouchableOpacity
+                            onPress={() => addItemToCart(item)}
+                        >
+                            <View style={styles.iconBox}>
+                                <Icon name="add-shopping-cart" size={30} color="white" />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
-        )
+            )
         }
     }
     return (
@@ -83,16 +84,15 @@ export default function Tranding(navigation) {
             <View style={{ flex: 1, width: "95%", alignSelf: "center", flexDirection: "row" }}>
 
                 {
-                    isLoading ? 
-                    // <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text>
-                    <Skeleton>
-                    <Skeleton.Item flexDirection="row" >
-                      <Skeleton.Item alignItems="center" width={210} height={320}
-                        marginLeft={20} borderRadius={20} marginTop={20} />
-                      <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
-                    </Skeleton.Item>
-                  </Skeleton>
-                    :
+                    isLoading ?
+                        // <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text>
+                        <Skeleton>
+                            <Skeleton.Item flexDirection="row" >
+                                <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
+                                <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
+                            </Skeleton.Item>
+                        </Skeleton>
+                        :
                         <FlatList
                             data={mainfeaturedapidata}
                             horizontal

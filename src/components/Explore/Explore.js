@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Image } from 'react-native-animatable'
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Skeleton from '@thevsstech/react-native-skeleton';
 
 
 export default function Explore({ navigation }) {
@@ -31,21 +32,41 @@ export default function Explore({ navigation }) {
 
 
   return (
-    <View>
-      {/* <Text style={styles.coupons}> Deal of Day</Text> */}
-      <View style={styles.conatiner}>
-        <Text style={styles.coupons}>Product</Text>
-        <View style={{  width: "100%", alignSelf: "center", flexDirection: 'row' }}>
+    <ScrollView>
+      <View>
+        {/* <Text style={styles.coupons}> Deal of Day</Text> */}
+        <View style={styles.conatiner}>
+          <Text style={styles.coupons}>Product</Text>
+          <View style={{ width: "100%", alignSelf: "center", flexDirection: 'row' }}>
+            {
+              isLoading ?
+                // <Text styles={{ color: "black",fontSize:30 }}>Loading...</Text> 
+                <Skeleton>
+                  <Skeleton.Item flexDirection="row" >
+                    <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
+                    <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
+                  </Skeleton.Item>
 
-           {/* <View style={[styles.ImageBox, styles.shadowProp]}>
+                </Skeleton>
+                :
+
+                <FlatList
+                  data={mainfeaturedapidata}
+                  renderItem={({ item }, index) => {
+
+                    return (
+                      <View style={[styles.ImageBox, styles.shadowProp]}>
                         <View style={styles.MainImgBox}>
-                          <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
+                          <Image
+                            source={{ uri: item.base_image.small_image_url }}
+                            // source={require("../../assets/mainlogo.jpeg")} 
+                            style={styles.img} />
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                           <View style={{ width: 100 }}>
+                            <Text style={styles.name}>{item.name}</Text>
                             <Text></Text>
-                            <Text></Text>
-                            <Text style={styles.name}>Product</Text>
+                            {/* <Text style={styles.name}></Text> */}
                           </View>
                           <TouchableOpacity>
                             <View style={styles.iconBox}>
@@ -53,76 +74,20 @@ export default function Explore({ navigation }) {
                             </View>
                           </TouchableOpacity>
                         </View>
-                      </View>   */}
-  {
-            isLoading ? <Text styles={{ color: "black",fontSize:30 }}>Loading...</Text> :
-            
-              <FlatList
-                data={mainfeaturedapidata}
-                renderItem={({ item }, index) => {
-                  
-                  return (
-                    <View style={[styles.ImageBox, styles.shadowProp]}>
-                      <View style={styles.MainImgBox}>
-                        <Image  
-                        source={{ uri: item.base_image.small_image_url }}
-                        // source={require("../../assets/mainlogo.jpeg")} 
-                        style={styles.img} />
                       </View>
-                      <View style={{ flex: 1, flexDirection: "row" }}>
-                        <View style={{ width: 100 }}>
-                          <Text style={styles.name}>{item.name}</Text>
-                          <Text></Text>
-                          {/* <Text style={styles.name}></Text> */}
-                        </View>
-                        <TouchableOpacity>
-                          <View style={styles.iconBox}>
-                            <Icon name="arrow-right-alt" size={28} color="white" />
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  )
-                  
-                  
-                
-                }}
-                numColumns={2}
-                keyExtractor={(item, index) => item.id} 
-              />
-          }   
+                    )
 
 
 
-
-
-
-
-
-
-
-
-{/* <View style={[styles.ImageBox, styles.shadowProp]}>
-                        <View style={styles.MainImgBox}>
-                          <Image source={require("../../assets/mainlogo.jpeg")} style={styles.img} />
-                        </View>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                          <View style={{ width: 100 }}>
-                            <Text></Text>
-                            <Text></Text>
-                            <Text style={styles.name}>Product</Text>
-                          </View>
-                          <TouchableOpacity>
-                            <View style={styles.iconBox}>
-                              <Icon name="arrow-right-alt" size={28} color="white" />
-                            </View>
-                          </TouchableOpacity>
-                        </View>
-                      </View>  */}
-
+                  }}
+                  numColumns={2}
+                  keyExtractor={(item, index) => item.id}
+                />
+            }
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({
@@ -135,7 +100,7 @@ const styles = StyleSheet.create({
     fontFamily: "Labrada-Bold",
     marginLeft: 10,
     marginTop: 10,
-    position:'relative'
+    position: 'relative'
   },
   ImageBox: {
     width: 230,
@@ -148,7 +113,8 @@ const styles = StyleSheet.create({
     // elevation: 10,
     borderWidth: 1,
     borderColor: "lightgray",
-    marginLeft: 8
+    marginLeft: 8,
+    marginBottom: 8
   },
   shadowProp: {
     shadowOffset: { width: -2, height: 4 },

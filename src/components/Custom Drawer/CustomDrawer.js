@@ -6,7 +6,7 @@ import {
     StyleSheet
 
 } from 'react-native';
-import { DrawerContentScrollView, DrawerItemList, } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList,DrawerHeaderProps } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function CustomDrawer(props) {
@@ -14,6 +14,7 @@ export default function CustomDrawer(props) {
 
         <View style={{ flex: 1, }}>
             <DrawerContentScrollView
+            
                 {...props}
                 contentContainerStyle={{ backgroundColor: 'white' }}>
                 <View style={{ marginBottom: 30, marginTop: 10 }}>

@@ -10,12 +10,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { AppBar, HStack, IconButton } from "@react-native-material/core";
 
 import React, { useState, useRef } from 'react';
-import { Text, View, TouchableOpacity, Animated,StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import Coupons from '../components/Shop/Coupons'
 import SingleProduct from '../components/Shop/SingleProduct'
-
+import HeaderTab from '../components/Custom Drawer/HeaderTab'
 
 
 
@@ -25,18 +26,18 @@ const Stack = createStackNavigator();
 
 
 const BottomTabStack = () => {
-//   const [isZoomed, setIsZoomed] = useState(false);
-// const zoomValue = useRef(new Animated.Value(1)).current;
+  //   const [isZoomed, setIsZoomed] = useState(false);
+  // const zoomValue = useRef(new Animated.Value(1)).current;
 
-// const handleZoom = () => {
-//   setIsZoomed(!isZoomed);
-//   const toValue = isZoomed ? 1 : 1.5; // zoom in or out based on current state
-//   Animated.timing(zoomValue, {
-//     toValue,
-//     duration: 500, // animation duration
-//     useNativeDriver: true, // enable native driver for better performance
-//   }).start();
-// };
+  // const handleZoom = () => {
+  //   setIsZoomed(!isZoomed);
+  //   const toValue = isZoomed ? 1 : 1.5; // zoom in or out based on current state
+  //   Animated.timing(zoomValue, {
+  //     toValue,
+  //     duration: 500, // animation duration
+  //     useNativeDriver: true, // enable native driver for better performance
+  //   }).start();
+  // };
   return (
     <Tab.Navigator
       initialRouteName="Shop"
@@ -56,18 +57,18 @@ const BottomTabStack = () => {
       }}>
       {/* <TouchableOpacity onPress={handleZoom}>
         <Animated.Text style={{ fontSize: 20, transform: [{ scale: zoomValue }] }}> */}
-          <Tab.Screen
-            name="Shop"
-            component={Shop}
-            options={{
-              tabBarLabel: 'Shop ',
-              tabBarLabelStyle: { fontSize: 17 },
-              tabBarIcon: ({ focused }) => (
-                <Icon name="storefront" color={focused ? '#52b372' : 'black'} size={28} />
-              ),
-            }}
-          />
-        {/* </Animated.Text>
+      <Tab.Screen
+        name="Shop"
+        component={Shop}
+        options={{
+          tabBarLabel: 'Shop ',
+          tabBarLabelStyle: { fontSize: 17 },
+          tabBarIcon: ({ focused }) => (
+            <Icon name="storefront" color={focused ? '#52b372' : 'black'} size={28} />
+          ),
+        }}
+      />
+      {/* </Animated.Text>
       </TouchableOpacity> */}
       <Tab.Screen
         name="Explore"
@@ -132,14 +133,14 @@ const BottomTabStack = () => {
     </Tab.Navigator>
   );
 };
-const HomeScreenStack = ({navigation}) => {
+const HomeScreenStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="BottomTabStack"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
-      <Stack.Screen name="Coupons" component={Coupons}/>
-      <Stack.Screen name="Singleproduct" component={SingleProduct}/>
+      <Stack.Screen name="Coupons" component={Coupons} />
+      <Stack.Screen name="Singleproduct" component={SingleProduct} />
     </Stack.Navigator>
   );
 };
@@ -180,8 +181,9 @@ const AccountScreenStack = () => {
   );
 };
 
-export default function MainAppScreen({navigation}) {
+export default function MainAppScreen() {
   return (
+
     // <View>
     //   <Icon name="storefront" size={30} color="black" />
     //   <Icon name="person-outline" size={30} color="black" />
@@ -192,8 +194,7 @@ export default function MainAppScreen({navigation}) {
     //  <BottomTabStack/>
     // </View>
     <Drawer.Navigator
-    // drawerContent={props => }
-    // headerRight={props=> <HeaderTab {...props}/>}
+      // drawerContent={props=> <HeaderTab {...props}/>}
 
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
@@ -289,7 +290,22 @@ export default function MainAppScreen({navigation}) {
         }}
         component={AccountScreenStack}
       />
+      {/* <AppBar
+        contentContainerStyle={{ backgroundColor: "white" }}
+        trailing={props => (
+          <HStack>
+            <IconButton
+              icon={props => <Icon name="search" size={25} color="black" />} />
+            <IconButton
+              icon={props => <Icon name="favorite-border" size={25} color="black" />} />
+            <IconButton
+              icon={props => <Icon name="add-shopping-cart" size={25} color="black" />} />
+          </HStack>
+        )}
+      /> */}
     </Drawer.Navigator>
+
+
 
   )
 }
