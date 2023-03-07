@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../redux/reducer/Reducers';
 import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { createStackNavigator } from '@react-navigation/stack';
-
 import CheckOut from './CheckOut';
 import Icon from "react-native-vector-icons/MaterialIcons"
-
-
+import {incrementQuantity} from '../../redux/reducer/Reducers';
+import { decrementQuantity,Totalitem } from '../../redux/reducer/Reducers';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +20,8 @@ export default function Cart({ navigation }) {
   const removeItemFromCart = item => {
     dispatch(removeFromCart(item));
   };
+
+
 
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
@@ -35,19 +36,23 @@ export default function Cart({ navigation }) {
   const Totalitem = item => {
     let totalPrice = 0;
     item.forEach((item) => {
-      let price = parseFloat(item.price).toFixed(1);
+      let price = parseFloat(item.price).toFixed(1) * item.quantity;
       totalPrice += parseFloat(price);
     });
     return [totalPrice];
   }
-  // const getTotal = () => {
-  //   let total = 0;
-  //   item.map(item => {
-  //     total = total + item.data.qty * item.data.discountPrice;
-  //   });
-  //   return total;
-  // };
 
+
+
+  const increament =(item) =>{
+
+dispatch(incrementQuantity(item));
+
+
+  }
+  const decreament =(item) =>{
+   dispatch(decrementQuantity(item));
+  }
   return (
     <View style={{ flex: 1, height: 900 }}>
       <View style={styles.AddArrBox}>
@@ -71,24 +76,24 @@ export default function Cart({ navigation }) {
                 <Text style={styles.CAtName}>{item.category_name}</Text>
                 <Text style={styles.ProductName}>{item.name}</Text>
                 <View style={{ width: 100, height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={()=>decreament(item)}>
                     <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                      <Icon name="expand-more" size={20} color="#52b372" />
+                      <Icon name="expand-more" size={20} color="#52b372"  />
 
                     </View>
                   </TouchableOpacity>
                   <Text>ss</Text>
                   <View>
-                    <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>1</Text>
+                    <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>{item.quantity}</Text>
                   </View>
                   <Text>ss</Text>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={()=>increament(item)}>
                     <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                      <Icon name="expand-less" size={20} color="#52b372" />
+                      <Icon name="expand-less" size={20} color="#52b372"  />
                     </View>
                   </TouchableOpacity>
                 </View>
-                <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 20 }}>${price}</Text>
+                <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 20 }}>${parseFloat(price *= item.quantity).toFixed(2)}</Text>
               </View>
             </View>
 
@@ -124,7 +129,7 @@ export default function Cart({ navigation }) {
         <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 5 }}>
           <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 15 }}>Total Amount</Text>
-          <Text style={{ color: "black" }}>$ {Totalitem(item)}</Text>
+          <Text style={{ color: "black" }}>${Totalitem(item)}</Text>
         </View>
 
       </View>
@@ -164,7 +169,7 @@ export default function Cart({ navigation }) {
 
               <View style={{ width: "100%", height: 35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
                 <Text style={{ color: "black", fontSize: 17 }}>Total Cost</Text>
-                <Text style={{ color: "black", fontSize: 17 }}> $ {Totalitem(item)}</Text>
+                <Text style={{ color: "black", fontSize: 17 }}> ${Totalitem(item)}</Text>
               </View>
               <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
               <Text style={{ color: "gray", fontFamily: "Labrada-Bold", fontSize: 15 }}>By placing an order you agree to out Terms And Condation</Text>
