@@ -1,16 +1,14 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity,ScrollView } from 'react-native'
 import React, { useState, useRef } from 'react'
-// import styles from './CartStyle'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../redux/reducer/Reducers';
+import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { createStackNavigator } from '@react-navigation/stack';
+
+import CheckOut from './CheckOut';
 import Icon from "react-native-vector-icons/MaterialIcons"
 
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
-import { createStackNavigator } from '@react-navigation/stack';
-import CheckOut from './CheckOut';
+
 
 const Stack = createStackNavigator();
 
@@ -26,52 +24,77 @@ export default function Cart({ navigation }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
-  const snapPoints = ["35%"];
+  const snapPoints = ["40%"];
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
     setTimeout(() => {
       setIsOpen(true);
     }, 100);
   }
+
+  const Totalitem = item => {
+    let totalPrice = 0;
+    item.forEach((item) => {
+      let price = parseFloat(item.price).toFixed(1);
+      totalPrice += parseFloat(price);
+    });
+    return [totalPrice];
+  }
+  // const getTotal = () => {
+  //   let total = 0;
+  //   item.map(item => {
+  //     total = total + item.data.qty * item.data.discountPrice;
+  //   });
+  //   return total;
+  // };
+
   return (
-    <ScrollView>
     <View style={{ flex: 1, height: 900 }}>
       <View style={styles.AddArrBox}>
         <View style={styles.Add}>
           <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Add Address</Text>
         </View>
       </View>
-      <View style={styles.cartBox}>
-        <View style={styles.IMGBox}>
-          <Image source={require("../../assets/main.jpeg")} style={styles.img} />
-        </View>
-        <View style={styles.Content}>
-          <Text style={styles.CAtName}>Cat name</Text>
-          <Text style={styles.ProductName}>Product name </Text>
-          <View style={{ width: 100, height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-            <TouchableOpacity>
-              <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                <Icon name="expand-more" size={20} color="#52b372" />
-
+      <FlatList
+        data={item}
+        renderItem={({ item, index }) => {
+          let price = parseFloat(item.price).toFixed(2);
+          return (
+            <View style={styles.cartBox}>
+              <View style={styles.IMGBox}>
+                <Image
+                  source={{ uri: item.base_image.small_image_url }}
+                  // source={require("../../assets/main.jpeg")} 
+                  style={styles.img} />
               </View>
-            </TouchableOpacity>
-            <Text>ss</Text>
-            <View>
-              <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>1</Text>
+              <View style={styles.Content}>
+                <Text style={styles.CAtName}>{item.category_name}</Text>
+                <Text style={styles.ProductName}>{item.name}</Text>
+                <View style={{ width: 100, height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                  <TouchableOpacity>
+                    <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
+                      <Icon name="expand-more" size={20} color="#52b372" />
+
+                    </View>
+                  </TouchableOpacity>
+                  <Text>ss</Text>
+                  <View>
+                    <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>1</Text>
+                  </View>
+                  <Text>ss</Text>
+                  <TouchableOpacity>
+                    <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
+                      <Icon name="expand-less" size={20} color="#52b372" />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 20 }}>${price}</Text>
+              </View>
             </View>
-            <Text>ss</Text>
-            <TouchableOpacity>
-              <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                <Icon name="expand-less" size={20} color="#52b372" />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 20 }}>$30.00</Text>
 
-
-        </View>
-
-      </View>
+          );
+        }}
+      />
       <View style={styles.CouponsBox}>
         <View style={{ width: "30%", flexDirection: "row", alignItems: "center", justifyContent: "center", }}>
 
@@ -88,20 +111,20 @@ export default function Cart({ navigation }) {
         <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
           <Text style={{ color: "black" }}>Total MRP</Text>
-          <Text style={{ color: "black" }}> $ 4.47</Text>
+          <Text style={{ color: "black" }}>$ {Totalitem(item)}</Text>
         </View>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 5 }}>
           <Text style={{ color: "black" }}>Coupons Discount</Text>
-          <Text style={{ color: "black" }}> $0.00</Text>
+          <Text style={{ color: "black" }}> $0.0</Text>
         </View>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 5 }}>
           <Text style={{ color: "black" }}>Convenicence Fee</Text>
-          <Text style={{ color: "black" }}> $ 0.00</Text>
+          <Text style={{ color: "black" }}> $ 0.0</Text>
         </View>
         <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 5 }}>
           <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 15 }}>Total Amount</Text>
-          <Text style={{ color: "black" }}> $ 4.47</Text>
+          <Text style={{ color: "black" }}>$ {Totalitem(item)}</Text>
         </View>
 
       </View>
@@ -141,11 +164,12 @@ export default function Cart({ navigation }) {
 
               <View style={{ width: "100%", height: 35, flexDirection: "row", alignItems: "center", justifyContent: "space-between", alignContent: "space-between", marginTop: 10 }}>
                 <Text style={{ color: "black", fontSize: 17 }}>Total Cost</Text>
-                <Text style={{ color: "black", fontSize: 17 }}> $ 4.47</Text>
+                <Text style={{ color: "black", fontSize: 17 }}> $ {Totalitem(item)}</Text>
               </View>
               <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
               <Text style={{ color: "gray", fontFamily: "Labrada-Bold", fontSize: 15 }}>By placing an order you agree to out Terms And Condation</Text>
-              <TouchableOpacity style={styles.popupPlace} onPress={() => navigation.navigate("Cart")}>
+              <TouchableOpacity style={styles.popupPlace}
+                onPress={() => navigation.navigate("CheckOut")}>
                 <View>
                   <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>Place Order</Text>
                 </View>
@@ -156,7 +180,6 @@ export default function Cart({ navigation }) {
 
       </BottomSheetModalProvider>
     </View>
-    </ScrollView>
   )
 }
 const styles = StyleSheet.create({
@@ -252,9 +275,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "gray",
     flexDirection: "column",
-    padding: 20
+    padding: 20,
+    marginBottom: 75
   },
   PlaceBox: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    position: 'absolute',
     marginTop: 10,
     backgroundColor: "white",
     elevation: 10,
@@ -262,10 +290,7 @@ const styles = StyleSheet.create({
     height: 65,
     justifyContent: 'center',
     alignItems: 'center',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    position: "relative"
+
   },
   popupPlace: {
     width: "100%",

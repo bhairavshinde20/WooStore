@@ -4,7 +4,7 @@ import React from 'react'
 export default function CheckOut() {
   return (
     <View>
-      <Text>CheckOut</Text>
+      <Text style={{color:"black"}}>CheckOut</Text>
     </View>
   )
 }

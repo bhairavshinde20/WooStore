@@ -1,13 +1,8 @@
-import React from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet
-
-} from 'react-native';
+import {View,Text,TouchableOpacity,StyleSheet} from 'react-native';
 import { DrawerContentScrollView, DrawerItemList,DrawerHeaderProps } from '@react-navigation/drawer';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
 
 export default function CustomDrawer(props) {
     return (
@@ -28,7 +23,7 @@ export default function CustomDrawer(props) {
                         </View>
                     </View>
                 </View>
-                <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
+                <View style={{ flex: 1, backgroundColor: '#ffff', paddingTop: 10 }}>
                     <DrawerItemList {...props} />
                 </View>
             </DrawerContentScrollView>
@@ -38,11 +33,7 @@ export default function CustomDrawer(props) {
                         <Icon name="exit-to-app" size={30} color="#52b372" />
                         <Text
                             style={{
-                                fontSize: 15,
-                                fontFamily: "Labrada-Bold",
-                                marginLeft: 5,
-                                color: 'black'
-                            }}>
+                                fontSize: 15,fontFamily: "Labrada-Bold",marginLeft: 5,color: 'black'}}>
                             Log Out
                         </Text>
                     </View>

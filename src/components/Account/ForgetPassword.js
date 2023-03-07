@@ -1,14 +1,9 @@
-import "react-native-gesture-handler";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons"
-import { useState, useEffect } from "react";
+import {StyleSheet,Text,View,TouchableOpacity} from "react-native";
+import { useState} from "react";
 import { FloatingLabelInput } from "react-native-floating-label-input";
+
+import Icon from "react-native-vector-icons/MaterialIcons"
+import "react-native-gesture-handler";
 
 export default function ForgetPassword({ navigation }) {
   const [email, setEmail] = useState('');

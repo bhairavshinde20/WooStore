@@ -1,13 +1,15 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { AppBar, HStack, IconButton } from "@react-native-material/core";
+
 import React from 'react'
 import styles from './FavouriteStyle'
 import SingleProduct from '../Shop/SingleProduct'
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { AppBar, HStack, IconButton } from "@react-native-material/core";
 
 
 export default function Favourite() {
   return (
+    <ScrollView>
     <View style={styles.container}>
       {/* <Text style={{color:"black"}}>Fav</Text> */}
       {/* <SingleProduct/> */}
@@ -61,19 +63,8 @@ export default function Favourite() {
           </View>
         </View>
       </View>
-<AppBar    
- contentContainerStyle={{backgroundColor:"white"}}
-    trailing={props => (
-      <HStack>
-        <IconButton
-          icon={props => <Icon name="search"  size={25} color="black" />}/>
-        <IconButton
-          icon={props => <Icon name="favorite-border" size={25} color="black" />}/>
-        <IconButton
-          icon={props => <Icon name="add-shopping-cart"size={25} color="black" />}/>
-      </HStack>
-    )}
-  />
+
     </View>
+    </ScrollView>
   )
 }

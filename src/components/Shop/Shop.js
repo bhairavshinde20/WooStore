@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+
 import React from 'react'
 import styles from './ShopStyle'
-// import Coupons from './Coupons'
 import Slider from './Slider'
-import { ScrollView } from 'react-native-gesture-handler'
 import NewCoupons from './NewCoupons'
 import Categories from './Categories'
 import DealofDay from './DealofDay'

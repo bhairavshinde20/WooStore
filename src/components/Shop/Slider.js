@@ -2,7 +2,6 @@ import { View, Text, StyleSheet } from 'react-native'
 import { ImageSlider } from 'react-native-image-slider-banner'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import Skeleton from '@thevsstech/react-native-skeleton';
 import Skeleton from '@thevsstech/react-native-skeleton';
 
 

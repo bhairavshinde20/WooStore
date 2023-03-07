@@ -1,4 +1,11 @@
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createStackNavigator } from '@react-navigation/stack';
+import { Text, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import { AppBar, HStack, IconButton } from "@react-native-material/core";
+import React, { useState, useRef } from 'react';
+
 import Account from '../components/Account/Account'
 import Cart from '../components/Cart/Cart'
 import Explore from '../components/Explore/Explore'
@@ -6,17 +13,11 @@ import Favourite from '../components/Favourite/Favourite'
 import Shop from '../components/Shop/Shop'
 import CustomDrawer from '../components/Custom Drawer/CustomDrawer'
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack';
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { AppBar, HStack, IconButton } from "@react-native-material/core";
-
-import React, { useState, useRef } from 'react';
-import { Text, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import Coupons from '../components/Shop/Coupons'
 import SingleProduct from '../components/Shop/SingleProduct'
 import HeaderTab from '../components/Custom Drawer/HeaderTab'
+import CheckOut from '../components/Cart/CheckOut'
 
 
 
@@ -133,7 +134,7 @@ const BottomTabStack = () => {
     </Tab.Navigator>
   );
 };
-const HomeScreenStack = () => {
+const HomeScreenStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       initialRouteName="BottomTabStack"
@@ -168,6 +169,7 @@ const CartScreenStack = () => {
       initialRouteName="cart"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Cart" component={Cart} />
+      <Stack.Screen name="CheckOut" component={CheckOut} />
     </Stack.Navigator>
   );
 };
@@ -192,14 +194,14 @@ export default function MainAppScreen() {
     //   <Icon name="favorite-border" size={30} color="black" />
     //  <Text style={{ color: "black", fontFamily: "Labrada-Regular", fontSize: 20 }}>Main Screen</Text>
     //  <BottomTabStack/>
-    // </View>
+    // </View>              
     <Drawer.Navigator
-      // drawerContent={props=> <HeaderTab {...props}/>}
 
+      // drawerContent={props=> <HeaderTab {...props}/>}
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'white', //Set Header color
+          backgroundColor: 'white', //Set Header color  
         },
         headerTintColor: '#52b372', //Set Header text color
         drawerLabelStyle: {
@@ -214,15 +216,7 @@ export default function MainAppScreen() {
           drawerLabel: 'Shop',
           title: 'Shop',
           drawerIcon: ({ color }) => (
-            <Icon
-              name="storefront"
-              style={styles.iconstyle}
-              size={30}
-              color="#52b372"
-            />
-
-          ),
-
+            <Icon name="storefront" size={30} color="#52b372" />)
         }}
         component={HomeScreenStack}
       />
@@ -234,7 +228,6 @@ export default function MainAppScreen() {
           drawerIcon: ({ color }) => (
             <Icon
               name="search"
-              style={styles.iconstyle}
               size={30}
               color="#52b372"
             />
@@ -250,7 +243,6 @@ export default function MainAppScreen() {
           drawerIcon: ({ color }) => (
             <Icon
               name="favorite-border"
-              style={styles.iconstyle}
               size={30}
               color="#52b372"
             />
@@ -266,7 +258,6 @@ export default function MainAppScreen() {
           drawerIcon: ({ color }) => (
             <Icon
               name="add-shopping-cart"
-              style={styles.iconstyle}
               size={30}
               color="#52b372"
             />
@@ -282,7 +273,6 @@ export default function MainAppScreen() {
           drawerIcon: ({ color }) => (
             <Icon
               name="person-outline"
-              style={styles.iconstyle}
               size={30}
               color="#52b372"
             />
@@ -290,30 +280,27 @@ export default function MainAppScreen() {
         }}
         component={AccountScreenStack}
       />
-      {/* <AppBar
-        contentContainerStyle={{ backgroundColor: "white" }}
-        trailing={props => (
-          <HStack>
-            <IconButton
-              icon={props => <Icon name="search" size={25} color="black" />} />
-            <IconButton
-              icon={props => <Icon name="favorite-border" size={25} color="black" />} />
-            <IconButton
-              icon={props => <Icon name="add-shopping-cart" size={25} color="black" />} />
-          </HStack>
-        )}
-      /> */}
+      {/* <AppBar    
+ contentContainerStyle={{backgroundColor:"white"}}
+    trailing={props => (
+      <HStack>
+        <IconButton
+          icon={props => <Icon name="search"  size={25} color="black" />}/>
+        <IconButton
+          icon={props => <Icon name="favorite-border" size={25} color="black" />}/>
+        <IconButton
+          icon={props => <Icon name="add-shopping-cart"size={25} color="black" />}/>
+      </HStack>
+    )}
+  /> */}
     </Drawer.Navigator>
-
-
-
   )
 }
 
-const styles = StyleSheet.create({
-  Bottom: {
-    size: 50,
-    color: 'red',
-    height: 100,
-  },
-})
+// const styles = StyleSheet.create({
+//   Bottom: {
+//     size: 50,
+//     color: 'red',
+//     height: 100,
+//   },
+// })

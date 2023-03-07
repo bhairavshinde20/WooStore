@@ -1,17 +1,28 @@
-import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet,FlatList } from 'react-native'
 import { Image } from 'react-native-animatable'
-import Icon from "react-native-vector-icons/MaterialIcons"
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { useDispatch, useSelector } from 'react-redux'
+import { ViewSingleProduct } from '../../redux/reducer/Product'
+
 import axios from 'axios'
-import { FlatList } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Skeleton from '@thevsstech/react-native-skeleton';
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 
 export default function Explore({ navigation }) {
   const [featureddata, setFeaturedData] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  const item = useSelector(state => state.data.data);
+  const FetchSingleProducts = (item) => {
+    return (
+      dispatch(ViewSingleProduct(item))
+      // console.log(id)
+    )
+  }
+
 
 
   useEffect(() => {
@@ -46,8 +57,7 @@ export default function Explore({ navigation }) {
                     <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
                     <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
                   </Skeleton.Item>
-
-                </Skeleton>
+              </Skeleton>
                 :
 
                 <FlatList
@@ -56,12 +66,25 @@ export default function Explore({ navigation }) {
 
                     return (
                       <View style={[styles.ImageBox, styles.shadowProp]}>
-                        <View style={styles.MainImgBox}>
-                          <Image
-                            source={{ uri: item.base_image.small_image_url }}
-                            // source={require("../../assets/mainlogo.jpeg")} 
-                            style={styles.img} />
-                        </View>
+                        {/* <Pressable onPress={() =>
+                          navigation.navigate(
+                            `Singleproduct`,
+                            FetchSingleProducts(item)
+                          )}
+                        > */}
+                          <View style={styles.MainImgBox}
+                          onPress={() =>
+                            navigation.navigate(
+                              `Singleproduct`,
+                              FetchSingleProducts(item)
+                            )}
+                          >
+                            <Image
+                              source={{ uri: item.base_image.small_image_url }}
+                              // source={require("../../assets/mainlogo.jpeg")} 
+                              style={styles.img} />
+                          </View>
+                        {/* </Pressable> */}
                         <View style={{ flex: 1, flexDirection: "row" }}>
                           <View style={{ width: 100 }}>
                             <Text style={styles.name}>{item.name}</Text>

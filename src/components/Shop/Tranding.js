@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Image } from 'react-native-animatable'
-import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 import Skeleton from '@thevsstech/react-native-skeleton';
+import axios from 'axios'
+import Icon from "react-native-vector-icons/MaterialIcons"
+
 
 export default function Tranding({ navigation }) {
     const [featureddata, setFeaturedData] = useState([]);
@@ -52,8 +53,7 @@ export default function Tranding({ navigation }) {
                         navigation.navigate(
                             `Singleproduct`,
                             FetchSingleProducts(item)
-                        )
-                    }>
+                        )}>
                         <View style={styles.MainImgBox}>
                             <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
                         </View>

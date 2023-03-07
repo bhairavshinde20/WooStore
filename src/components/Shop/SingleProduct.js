@@ -1,21 +1,17 @@
 import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native'
 import React, { useCallback, useState, useMemo, useRef } from 'react'
-import axios from 'axios';
 import { ImageSlider } from 'react-native-image-slider-banner'
 import { useSelector } from 'react-redux';
-import {
-    BottomSheetModal,
-    BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
+import {BottomSheetModal,BottomSheetModalProvider,} from "@gorhom/bottom-sheet";
+
 import Icon from "react-native-vector-icons/MaterialIcons"
+import axios from 'axios';
+
 
 export default function SingleProduct({ navigation }) {
     const item = useSelector(state => state.cart.cart);
 
     return (
-
-
-
         <View style={styles.container}>
             <View style={styles.ImgContainer}>
                 <Image
@@ -50,19 +46,16 @@ export default function SingleProduct({ navigation }) {
                     <Image
                         style={[styles.ImagView, styles.Img4view]}
                         // source={{ uri: item.base_image.original_image_url }}
-                        source={require("../../assets/main.jpeg")}
-                    />
+                        source={require("../../assets/main.jpeg")}/>
                 </View>
             </View>
             <View style={styles.CatConatiner}>
                 <Text style={styles.cat}>category_name</Text>
-                <Text style={styles.price}>$ 20.00</Text>
-
+                <Text style={styles.price}>$ 20.00</Text>\
             </View>
             <View style={styles.CatConatiner}>
                 <Text style={styles.Product}>Product Name</Text>
                 <Text style={styles.price}></Text>
-
             </View>
             <View style={{ borderBottomWidth: 1, borderColor: "gray" }}></View>
             <View style={[styles.ProductDBox, styles.shadowProp]}>
@@ -71,27 +64,24 @@ export default function SingleProduct({ navigation }) {
                     Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes, along with exposition, argumentation, and narration.
                 </Text>
             </View>
-            <View style={[styles.GrrenBox,styles.shadowProp]}>
-                <View style={{width:"50%",flexDirection:"row",justifyContent:'space-around'}}>
-                <View style={styles.IconBox}>
-                    <Icon name="share" size={30} color="black"/>
-                </View>
-                <View style={styles.IconBox}>
-                <Icon name="favorite-border" size={30} color="black"/>
-                </View>
+            <View style={[styles.GrrenBox, styles.shadowProp]}>
+                <View style={{ width: "50%", flexDirection: "row", justifyContent: 'space-around' }}>
+                    <View style={styles.IconBox}>
+                        <Icon name="share" size={30} color="black" />
+                    </View>
+                    <View style={styles.IconBox}>
+                        <Icon name="favorite-border" size={30} color="black" />
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.cartBox}>
-                {/* <View style={styles.cartBox}> */}
-               <Icon name="add-shopping-cart" size={30} color="white"/>
-               <Text style={styles.ViewC}>View Cart</Text>
-                {/* </View> */}
+                    {/* <View style={styles.cartBox}> */}
+                    <Icon name="add-shopping-cart" size={30} color="white" />
+                    <Text style={styles.ViewC}>View Cart</Text>
+                    {/* </View> */}
                 </TouchableOpacity>
             </View>
 
         </View>
-
-
-
     )
 }
 const styles = StyleSheet.create({
@@ -178,8 +168,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         elevation: 10,
         padding: 20,
-//         borderBottomWidth: 1,
-// borderBottomColor: "gray"
+        //         borderBottomWidth: 1,
+        // borderBottomColor: "gray"
     },
     shadowProp: {
         shadowOffset: { width: -2, height: 4 },
@@ -203,39 +193,36 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         elevation: 5,
         alignItems: "flex-start",
-        justifyContent:"flex-start",
-flexDirection:"row",
-padding:20,
-borderTopWidth: 1,
-borderTopColor: "gray"
-
-
-
+        justifyContent: "flex-start",
+        flexDirection: "row",
+        padding: 20,
+        borderTopWidth: 1,
+        borderTopColor: "gray"
     },
     IconBox: {
         width: 50,
         height: 50,
         // borderWidth: 1,
-        borderRadius:15,
-        backgroundColor:"lightgray" ,
-        alignItems:"center",
-        justifyContent:"center"
-    
+        borderRadius: 15,
+        backgroundColor: "lightgray",
+        alignItems: "center",
+        justifyContent: "center"
+
     },
-    cartBox:{
-        width:"50%",
-        flexDirection:"row",
-        height:50,
+    cartBox: {
+        width: "50%",
+        flexDirection: "row",
+        height: 50,
         // borderWidth:1,
-        backgroundColor:"#52b372",
-        borderRadius:5,
-        justifyContent:"space-around",
-        padding:9
+        backgroundColor: "#52b372",
+        borderRadius: 5,
+        justifyContent: "space-around",
+        padding: 9
     },
-    ViewC:{
+    ViewC: {
         color: "white",
         fontFamily: "Labrada-Bold",
         fontSize: 20,
-        marginTop:2
+        marginTop: 2
     },
 })

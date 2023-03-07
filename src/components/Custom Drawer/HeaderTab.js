@@ -1,12 +1,9 @@
-import {
-  View, Text,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
-import React from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
 import { AppBar, HStack, IconButton } from "@react-native-material/core";
 import { DrawerHeaderProps } from '@react-navigation/drawer';
+
+import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 export default function HeaderTab(props) {

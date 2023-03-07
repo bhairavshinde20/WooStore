@@ -1,25 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {Button,StyleSheet,ImageBackground} from "react-native";
+import {BottomSheetModal,BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import { Image } from 'react-native-animatable';
+
+import Icon from "react-native-vector-icons/MaterialIcons"
 import BottomSheet from 'react-native-simple-bottom-sheet';
 import ForgetPassword from './ForgetPassword';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import { createStackNavigator } from '@react-navigation/stack';
-
 import "react-native-gesture-handler";
-import {
-  Button,
-  StyleSheet,
-  ImageBackground
-} from "react-native";
-
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
-import Icon from "react-native-vector-icons/MaterialIcons"
-import { Image } from 'react-native-animatable';
-// import { styles } from './AccountStyle';
 
 const Stack = createStackNavigator();
 
@@ -72,7 +63,7 @@ export default function Account() {
               screenOptions={{ headerShown: false }}>
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+              <Stack.Screen name="ForgetPassword" component={ForgetPassword}/>
             </Stack.Navigator>
           </BottomSheetModal>
         </View>

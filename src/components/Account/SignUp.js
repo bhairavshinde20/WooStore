@@ -1,15 +1,10 @@
-import "react-native-gesture-handler";
-import { 
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity
-} from "react-native";
-
-import Icon from "react-native-vector-icons/MaterialIcons"
+import { StyleSheet,Text,View,TouchableOpacity} from "react-native";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import { useState, useEffect } from "react";
+
+import Icon from "react-native-vector-icons/MaterialIcons"
+import "react-native-gesture-handler";
+
 
 export default function SignUp({navigation}) {
   const [username,setUserName] = useState('')

@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet,Image, Pressable ,TouchableOpacity,FlatList} from 'react-native'
+
 import React from 'react'
 import Icon from "react-native-vector-icons/MaterialIcons"
 
@@ -30,11 +31,11 @@ export default function NewCoupons({ navigation }) {
         },
     ]
     return (
-        <View >
+        <View>
             <View style={styles.container2}>
                 <Text style={styles.coupons}>Coupons for you</Text>
-                <TouchableOpacity>
-                    <Text onPress={()=> navigation.navigate('Coupons')} style={styles.see}>See All</Text>
+                <TouchableOpacity  onPress={()=> navigation.navigate("Coupons")}>
+                    <Text  style={styles.see}>See All</Text>
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1, width: "95%", alignSelf: "center" }}>
@@ -43,7 +44,6 @@ export default function NewCoupons({ navigation }) {
                     data={data}
                     renderItem={({ item }, index) => {
                         return (
-
                             <View style={styles.GreenBoxContainer}>
                                 <View style={styles.GCBox}>
                                     <View style={styles.GimgBox}>
@@ -65,7 +65,7 @@ export default function NewCoupons({ navigation }) {
     )
 }
 const styles = StyleSheet.create({
-    contsiner: {
+    container: {
         flex: 1,
         margin: 14
 

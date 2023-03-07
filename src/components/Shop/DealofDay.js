@@ -1,15 +1,17 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React, { useEffect, useState, } from 'react'
 import { Image } from 'react-native-animatable'
-import Icon from "react-native-vector-icons/MaterialIcons"
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import axios from 'axios'
 import { FlatList } from 'react-native-gesture-handler'
 import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+
 import Skeleton from '@thevsstech/react-native-skeleton';
+import Toast from "react-native-toast-message"
+import axios from 'axios'
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 
 export default function DealofDay({ navigation }) {
@@ -27,6 +29,7 @@ export default function DealofDay({ navigation }) {
 
     const addItemToCart = item => {
         dispatch(addToCart(item));
+        // console.log(item);
     };
 
 
@@ -43,7 +46,17 @@ export default function DealofDay({ navigation }) {
     let newfeaturedapidata = [];
     newfeaturedapidata.push(featureddata)
     const mainfeaturedapidata = newfeaturedapidata[0];
-
+    const showToast = () => {
+        Toast.show({
+            type: "success",
+            text1: "Product Added in Cart",
+            text2: "Thanks",
+            autoHide: true,
+            position: "bottom",
+            visibilityTime: 2500,
+            bottomOffset: 50
+        })
+    }
     const renderItem = ({ item }) => {
         if (item) {
             let price = parseFloat(item.price).toFixed(2);
@@ -53,12 +66,8 @@ export default function DealofDay({ navigation }) {
                     <Pressable onPress={() =>
                         navigation.navigate(
                             `Singleproduct`,
-                            FetchSingleProducts(item)
-                        )
-                    }>
-                        <View style={styles.MainImgBox}
-
-                        >
+                            FetchSingleProducts(item))}>
+                        <View style={styles.MainImgBox}>
                             <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
                         </View>
                     </Pressable>
@@ -69,9 +78,10 @@ export default function DealofDay({ navigation }) {
                             <Text style={styles.name}>${price}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={() => addItemToCart(item)}
-
-                        >
+                            onPress={() => {
+                                showToast(),
+                                addItemToCart(item)
+                            }}>
                             <View style={styles.iconBox}>
                                 <Icon name="add-shopping-cart" size={30} color="white" />
                             </View>
@@ -89,15 +99,14 @@ export default function DealofDay({ navigation }) {
 
                 {
                     isLoading ?
-                    //  <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text> 
-                    <Skeleton>
-                    <Skeleton.Item flexDirection="row" >
-                      <Skeleton.Item alignItems="center" width={210} height={320}
-                        marginLeft={20} borderRadius={20} marginTop={20} />
-                      <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
-                    </Skeleton.Item>
-                  </Skeleton>
-                    :
+                        //  <Text style={{ color: "black", fontSize: 20 }}> Loading..</Text> 
+                        <Skeleton>
+                            <Skeleton.Item flexDirection="row" >
+                                <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
+                                <Skeleton.Item alignItems="center" width={210} height={320} marginLeft={20} borderRadius={20} marginTop={20} />
+                            </Skeleton.Item>
+                        </Skeleton>
+                        :
                         <FlatList
                             data={mainfeaturedapidata}
                             horizontal
@@ -129,7 +138,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 20,
         padding: 10,
-        // elevation: 10,
         borderWidth: 1,
         borderColor: "lightgray",
         marginLeft: 15
@@ -143,8 +151,6 @@ const styles = StyleSheet.create({
     MainImgBox: {
         height: 220,
         width: 170,
-        // borderWidth:1,
-        // borderColor:"red",
         backgroundColor: "white",
         alignSelf: "center",
         marginTop: 15,
@@ -169,11 +175,12 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         // borderWidth: 1,
         backgroundColor: "#52b372",
-        marginTop: 30,
+        marginTop: 30,               // elevation: 10,
+        // elevation: 10,
+        // elevation: 10,
+
         marginLeft: 30,
         alignItems: "center",
         justifyContent: "center",
-
-
     },
 })

@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+
 import Skeleton from '@thevsstech/react-native-skeleton';
+import axios from 'axios';
+
 
 export default function Categories({ navigation }) {
     const [newproduct, setNewProduct] = useState([]);
@@ -53,15 +55,9 @@ export default function Categories({ navigation }) {
                                 <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
                                 <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
                                 <Skeleton.Item width={100} height={100} marginLeft={20} borderRadius={50} marginTop={20} />
-
                             </Skeleton.Item>
                         </Skeleton>
-                        :
-                        <FlatList
-                            numColumns={4}
-                            data={MainNewProductApi}
-                            renderItem={renderItem}
-                        />
+                        : <FlatList numColumns={4} data={MainNewProductApi} renderItem={renderItem} />
                 }
             </View>
         </View>

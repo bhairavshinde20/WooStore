@@ -1,17 +1,10 @@
-import "react-native-gesture-handler";
-// import { StatusBar } from "expo-status-bar";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons"
+import {StyleSheet,Text,View,TouchableOpacity} from "react-native";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import { useState, useEffect } from "react";
+
+import Icon from "react-native-vector-icons/MaterialIcons"
 import axios from 'axios';
+import "react-native-gesture-handler";
 
 export default function SignIn({ navigation }) {
 
