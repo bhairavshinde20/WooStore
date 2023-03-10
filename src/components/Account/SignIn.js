@@ -1,10 +1,12 @@
 import {StyleSheet,Text,View,TouchableOpacity} from "react-native";
 import { FloatingLabelInput } from "react-native-floating-label-input";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 import Icon from "react-native-vector-icons/MaterialIcons"
 import axios from 'axios';
 import "react-native-gesture-handler";
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function SignIn({ navigation }) {
 
@@ -12,29 +14,32 @@ export default function SignIn({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { isLoading, login } = useContext(AuthContext);
 
   // const [passerr,setPassErr] = useState('')
   // const [emailerr,setEmailErr] = useState('')
   // const [errorMessage, setErrorMessage] = useState('');
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://parind.online/parind4/public/api/customer/login?email=ismailkarbhari91@gmail.com&password=Ismail@1234', {
-        email,
-        password,
-      });
-      console.log(response.data);
-      setError('');
-    } catch (err) {
-      console.log(err);
-      setError('Invalid email or password');
-    }
-    // setEmail("");
-    // setPassword("");
-  };
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post('https://parind.online/parind4/public/api/customer/login?email=ismailkarbhari91@gmail.com&password=Ismail@1234', {
+  //       email,
+  //       password,
+  //     });
+  //     console.log(response.data);
+  //     setError('');
+  //   } catch (err) {
+  //     console.log(err);
+  //     setError('Invalid email or password');
+  //   }
+  //   // setEmail("");
+  //   // setPassword("");
+  // };
   return (
 
     <View style={styles.contentContainer}>
       <Text style={styles.title}>Login</Text>
+      <Spinner visible={isLoading} />
+
       <View style={[styles.row, styles.shadowProp]}>
         {/* <View>
           <Text style={styles.Username}>Username</Text>
@@ -117,7 +122,10 @@ export default function SignIn({ navigation }) {
       </TouchableOpacity>
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <TouchableOpacity  onPress={handleLogin} 
+      <TouchableOpacity  
+      onPress={() => {
+        login(email, password);
+      }}
       >
         <View style={styles.login}>
           <Text style={styles.logtitle}>LogIn

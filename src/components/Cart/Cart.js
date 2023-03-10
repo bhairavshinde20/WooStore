@@ -6,8 +6,8 @@ import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet
 import { createStackNavigator } from '@react-navigation/stack';
 import CheckOut from './CheckOut';
 import Icon from "react-native-vector-icons/MaterialIcons"
-import {incrementQuantity} from '../../redux/reducer/Reducers';
-import { decrementQuantity,Totalitem } from '../../redux/reducer/Reducers';
+import { incrementQuantity } from '../../redux/reducer/Reducers';
+import { decrementQuantity, Totalitem } from '../../redux/reducer/Reducers';
 
 const Stack = createStackNavigator();
 
@@ -44,14 +44,12 @@ export default function Cart({ navigation }) {
 
 
 
-  const increament =(item) =>{
-
-dispatch(incrementQuantity(item));
-
-
+  const increament = (item) => {
+    dispatch(incrementQuantity(item));
   }
-  const decreament =(item) =>{
-   dispatch(decrementQuantity(item));
+
+  const decreament = (item) => {
+    dispatch(decrementQuantity(item));
   }
   return (
     <View style={{ flex: 1, height: 900 }}>
@@ -76,9 +74,9 @@ dispatch(incrementQuantity(item));
                 <Text style={styles.CAtName}>{item.category_name}</Text>
                 <Text style={styles.ProductName}>{item.name}</Text>
                 <View style={{ width: 100, height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                  <TouchableOpacity onPress={()=>decreament(item)}>
+                  <TouchableOpacity onPress={() => decreament(item)}>
                     <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                      <Icon name="expand-more" size={20} color="#52b372"  />
+                      <Icon name="expand-more" size={20} color="#52b372" />
 
                     </View>
                   </TouchableOpacity>
@@ -87,9 +85,9 @@ dispatch(incrementQuantity(item));
                     <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>{item.quantity}</Text>
                   </View>
                   <Text>ss</Text>
-                  <TouchableOpacity onPress={()=>increament(item)}>
+                  <TouchableOpacity onPress={() => increament(item)}>
                     <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
-                      <Icon name="expand-less" size={20} color="#52b372"  />
+                      <Icon name="expand-less" size={20} color="#52b372" />
                     </View>
                   </TouchableOpacity>
                 </View>

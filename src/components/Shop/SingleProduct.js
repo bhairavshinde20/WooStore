@@ -2,15 +2,15 @@ import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-n
 import React, { useCallback, useState, useMemo, useRef } from 'react'
 import { ImageSlider } from 'react-native-image-slider-banner'
 import { useSelector } from 'react-redux';
-import {BottomSheetModal,BottomSheetModalProvider,} from "@gorhom/bottom-sheet";
+import { BottomSheetModal, BottomSheetModalProvider, } from "@gorhom/bottom-sheet";
 
 import Icon from "react-native-vector-icons/MaterialIcons"
 import axios from 'axios';
 
 
-export default function SingleProduct({ navigation }) {
-    const item = useSelector(state => state.cart.cart);
-
+export default function SingleProduct() {
+    // const item = useSelector(state => state.cart.cart);
+    // console.log(item);
     return (
         <View style={styles.container}>
             <View style={styles.ImgContainer}>
@@ -46,12 +46,12 @@ export default function SingleProduct({ navigation }) {
                     <Image
                         style={[styles.ImagView, styles.Img4view]}
                         // source={{ uri: item.base_image.original_image_url }}
-                        source={require("../../assets/main.jpeg")}/>
+                        source={require("../../assets/main.jpeg")} />
                 </View>
             </View>
             <View style={styles.CatConatiner}>
                 <Text style={styles.cat}>category_name</Text>
-                <Text style={styles.price}>$ 20.00</Text>\
+                <Text style={styles.price}>$ 20.00</Text>
             </View>
             <View style={styles.CatConatiner}>
                 <Text style={styles.Product}>Product Name</Text>

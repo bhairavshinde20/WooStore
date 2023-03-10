@@ -2,8 +2,14 @@ import { View, Text, StyleSheet,Image, Pressable ,TouchableOpacity,FlatList} fro
 
 import React from 'react'
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { useNavigation } from '@react-navigation/native'
 
-export default function NewCoupons({ navigation }) {
+export default function NewCoupons() {
+    const navigate =  useNavigation().navigate
+    const changePage=()=>{
+        navigate('Coupons')
+        }
+
     const data = [
         {
             id: 1,
@@ -34,7 +40,7 @@ export default function NewCoupons({ navigation }) {
         <View>
             <View style={styles.container2}>
                 <Text style={styles.coupons}>Coupons for you</Text>
-                <TouchableOpacity  onPress={()=> navigation.navigate("Coupons")}>
+                <TouchableOpacity  onPress={()=> changePage()}>
                     <Text  style={styles.see}>See All</Text>
                 </TouchableOpacity>
             </View>

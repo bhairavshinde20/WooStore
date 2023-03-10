@@ -8,6 +8,7 @@ import NewCoupons from './NewCoupons'
 import Categories from './Categories'
 import DealofDay from './DealofDay'
 import Tranding from './Tranding'
+import SingleProduct from './SingleProduct'
 export default function Shop({navigation}) {
   return (
     <ScrollView style={styles.container}>
@@ -17,6 +18,7 @@ export default function Shop({navigation}) {
         <Categories />
         <DealofDay />
         <Tranding />
+        {/* <SingleProduct/> */}
       </View>
     </ScrollView>
   )

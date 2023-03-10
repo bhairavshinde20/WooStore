@@ -1,12 +1,16 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-
+import { useNavigation } from '@react-navigation/native';
 import Skeleton from '@thevsstech/react-native-skeleton';
 import axios from 'axios';
 
 
-export default function Categories({ navigation }) {
+export default function Categories() {
+    const navigate =  useNavigation().navigate
+    const changePage=()=>{
+        navigate('Explore')
+        }
     const [newproduct, setNewProduct] = useState([]);
     const [isLoading, setLoading] = useState(true);
     // ?new&limit=12
@@ -28,7 +32,7 @@ export default function Categories({ navigation }) {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            onPress={() => navigation.navigate("Explore")}>
+            onPress={() =>changePage()}>
             <View style={styles.catBox}>
                 <View style={styles.IMGbox}>
                     <Image

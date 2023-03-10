@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, InteractionManager } from 'react-native'
 import React, { useEffect, useState, } from 'react'
 import { Image } from 'react-native-animatable'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -7,6 +7,7 @@ import { ViewSingleProduct } from '../../redux/reducer/Product'
 import { addToCart } from '../../redux/reducer/Reducers'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native'
 
 import Skeleton from '@thevsstech/react-native-skeleton';
 import Toast from "react-native-toast-message"
@@ -14,7 +15,12 @@ import axios from 'axios'
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 
-export default function DealofDay({ navigation }) {
+export default function DealofDay() {
+    const navigate = useNavigation().navigate
+    const changePage = () => {
+        navigate('Singleproduct')
+    }
+
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const dispatch = useDispatch();
@@ -23,7 +29,6 @@ export default function DealofDay({ navigation }) {
     const FetchSingleProducts = (item) => {
         return (
             dispatch(ViewSingleProduct(item))
-            // console.log(id)
         )
     }
 
@@ -63,10 +68,10 @@ export default function DealofDay({ navigation }) {
             return (
 
                 <View style={[styles.ImageBox, styles.shadowProp]}>
-                    <Pressable onPress={() =>
-                        navigation.navigate(
-                            `Singleproduct`,
-                            FetchSingleProducts(item))}>
+                    <Pressable onPress={() => (
+                        FetchSingleProducts(item),
+                        changePage()
+                    )}>
                         <View style={styles.MainImgBox}>
                             <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
                         </View>
@@ -79,7 +84,6 @@ export default function DealofDay({ navigation }) {
                         </View>
                         <TouchableOpacity
                             onPress={() => {
-                                showToast(),
                                 addItemToCart(item)
                             }}>
                             <View style={styles.iconBox}>

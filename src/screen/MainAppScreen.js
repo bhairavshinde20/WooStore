@@ -25,6 +25,42 @@ const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+// function clickTabBarItem(tabIndex, navigation) {
+//   const event = navigation.emit({
+//     type: 'tabPress',
+//     target: navigation.getState().routeNames[tabIndex],
+//   });
+  
+//   if (!event.defaultPrevented) {
+//     navigation.navigate(navigation.getState().routeNames[tabIndex]);
+//   }
+// }
+
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+function clickTabBarItem(tabIndex) {
+  const tabBar = createBottomTabNavigator.getInstance();
+  tabBar._navigation.navigate(tabBar._state.routes[tabIndex].name);
+}
+
+
+function clickOnScreen(x, y) {
+  const button = TouchableOpacity.findAllByProps({ testID: 'clickable-area' })[0];
+  
+  const event = {
+    nativeEvent: {
+      locationX: x,
+      locationY: y,
+      pageX: x,
+      pageY: y,
+      target: button.props.testID,
+    },
+  };
+  
+  button.props.onPress(event);
+}
+
+
 
 const BottomTabStack = () => {
   //   const [isZoomed, setIsZoomed] = useState(false);
@@ -59,6 +95,7 @@ const BottomTabStack = () => {
       {/* <TouchableOpacity onPress={handleZoom}>
         <Animated.Text style={{ fontSize: 20, transform: [{ scale: zoomValue }] }}> */}
       <Tab.Screen
+      id={0}
         name="Shop"
         component={Shop}
         options={{
@@ -72,6 +109,8 @@ const BottomTabStack = () => {
       {/* </Animated.Text>
       </TouchableOpacity> */}
       <Tab.Screen
+      // id={1}
+      // tabIndex={1}
         name="Explore"
         component={Explore}
         options={{
@@ -87,6 +126,7 @@ const BottomTabStack = () => {
         }}
       />
       <Tab.Screen
+      id={2}
         name="Favourite"
         component={Favourite}
         options={{
@@ -102,6 +142,7 @@ const BottomTabStack = () => {
         }}
       />
       <Tab.Screen
+      id={3}
         name="Cart"
         component={Cart}
         options={{
@@ -117,6 +158,7 @@ const BottomTabStack = () => {
         }}
       />
       <Tab.Screen
+      id={4}
         name="Account"
         component={Account}
         options={{
@@ -137,7 +179,7 @@ const BottomTabStack = () => {
 const HomeScreenStack = ({ navigation }) => {
   return (
     <Stack.Navigator
-      initialRouteName="BottomTabStack"
+      initialRouteName="Shop"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
       <Stack.Screen name="Coupons" component={Coupons} />
@@ -169,7 +211,7 @@ const CartScreenStack = () => {
       initialRouteName="cart"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Cart" component={Cart} />
-      <Stack.Screen name="CheckOut" component={CheckOut} />
+      {/* <Stack.Screen name="CheckOut" component={CheckOut} /> */}
     </Stack.Navigator>
   );
 };
@@ -211,6 +253,7 @@ export default function MainAppScreen() {
         },
       }}>
       <Drawer.Screen
+      // onPress={()=>clickTabBarItem(0,navigation)}
         name="HomeScreenStack"
         options={{
           drawerLabel: 'Shop',
@@ -221,6 +264,8 @@ export default function MainAppScreen() {
         component={HomeScreenStack}
       />
       <Drawer.Screen
+      // onPress={()=>clickTabBarItem(1,navigation)}
+      // onPress={()=>clickTabBarItem(1)}
         name="SearchScreenStack"
         options={{
           drawerLabel: 'Explore',
@@ -280,6 +325,7 @@ export default function MainAppScreen() {
         }}
         component={AccountScreenStack}
       />
+    
       {/* <AppBar    
  contentContainerStyle={{backgroundColor:"white"}}
     trailing={props => (

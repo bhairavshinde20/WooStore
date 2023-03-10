@@ -9,9 +9,13 @@ import { addToCart } from '../../redux/reducer/Reducers'
 import Skeleton from '@thevsstech/react-native-skeleton';
 import axios from 'axios'
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { useNavigation } from '@react-navigation/native'
 
-
-export default function Tranding({ navigation }) {
+export default function Tranding() {
+    const navigate = useNavigation().navigate
+    const changePage = () => {
+        navigate('Singleproduct')
+    }
     const [featureddata, setFeaturedData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const dispatch = useDispatch();
@@ -49,11 +53,11 @@ export default function Tranding({ navigation }) {
             return (
 
                 <View style={[styles.ImageBox, styles.shadowProp]}>
-                    <Pressable onPress={() =>
-                        navigation.navigate(
-                            `Singleproduct`,
-                            FetchSingleProducts(item)
-                        )}>
+                    <Pressable onPress={() => (
+                        FetchSingleProducts(item),
+                        changePage()
+
+                    )}>
                         <View style={styles.MainImgBox}>
                             <Image source={{ uri: item.base_image.small_image_url }} style={styles.img} />
                         </View>

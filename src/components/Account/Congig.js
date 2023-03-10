@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://parind.online/parind4/public/api/customer';

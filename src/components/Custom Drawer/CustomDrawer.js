@@ -1,10 +1,15 @@
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native';
 import { DrawerContentScrollView, DrawerItemList,DrawerHeaderProps } from '@react-navigation/drawer';
-
+import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {AuthContext} from '../Account/context/AuthContext';
+
 
 export default function CustomDrawer(props) {
+    const {userInfo, isLoading, logout} = useContext(AuthContext);
+
     return (
 
         <View style={{ flex: 1, }}>
@@ -28,7 +33,9 @@ export default function CustomDrawer(props) {
                 </View>
             </DrawerContentScrollView>
             <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-                <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+                <TouchableOpacity  style={{ paddingVertical: 15 }}
+                 onPress={logout}
+               >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Icon name="exit-to-app" size={30} color="#52b372" />
                         <Text
