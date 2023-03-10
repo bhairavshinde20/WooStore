@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {createContext, useEffect, useState} from 'react';
+import { Alert } from 'react-native';
 import {BASE_URL} from '../Congig';
 
 export const AuthContext = createContext();
@@ -50,33 +51,33 @@ export  const AuthProvider = ({children}) => {
         //     console.log("wroen cradationals" );
         // }
         let userInfo = res.data;
+        
         console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
-
+      //  console.log("es,cjbsjdb"+error)
       })
       .catch(e => {
         console.log(`login error ${e}`);
         setIsLoading(false);
+        Alert.alert("Invalid Email or Password")
       });
   };
 
   const logout = () => {
     setIsLoading(true);
 
-    axios
-      .post(
-        `${BASE_URL}/logout`,
-        {},
-        {
-          headers: {Authorization: `Bearer ${userInfo.access_token}`},
-        },
-      )
+    axios.get(`${BASE_URL}/logout`)
+        // {},
+        // {
+        //   headers: {Authorization: `Bearer ${userInfo.access_token}`},
+        // },
+      // )
       .then(res => {
         console.log(res.data);
         AsyncStorage.removeItem('userInfo');
-        setUserInfo({});
+        setUserInfo(userInfo);
         setIsLoading(false);
       })
       .catch(e => {

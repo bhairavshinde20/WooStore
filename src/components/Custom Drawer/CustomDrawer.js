@@ -1,31 +1,40 @@
-import {View,Text,TouchableOpacity,StyleSheet} from 'react-native';
-import { DrawerContentScrollView, DrawerItemList,DrawerHeaderProps } from '@react-navigation/drawer';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList, DrawerHeaderProps } from '@react-navigation/drawer';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {AuthContext} from '../Account/context/AuthContext';
+import { AuthContext } from '../Account/context/AuthContext';
 
 
 export default function CustomDrawer(props) {
-    const {userInfo, isLoading, logout} = useContext(AuthContext);
+    const { userInfo, isLoading, logout } = useContext(AuthContext);
 
     return (
 
         <View style={{ flex: 1, }}>
             <DrawerContentScrollView
-            
+
                 {...props}
                 contentContainerStyle={{ backgroundColor: 'white' }}>
                 <View style={{ marginBottom: 30, marginTop: 10 }}>
+                <Spinner visible={isLoading} />
+
                     <View style={styles.userInfoSection}>
                         <View style={[styles.ImgBox, styles.shadowProp]}>
                             <Icon name="person" size={30} color="gray" />
                         </View>
+                        {
+                            userInfo.data ? <View style={styles.UserBox}>
+                            <Text style={styles.User}>{userInfo.data.name}</Text>
+                            <Text style={styles.Email}>{userInfo.data.email}</Text>
+                        </View> :
                         <View style={styles.UserBox}>
-                            <Text style={styles.User}>User</Text>
-                            <Text style={styles.Email}>Email</Text>
-                        </View>
+                        <Text style={styles.User}>User</Text>
+                        <Text style={styles.Email}>Email</Text>
+                    </View>
+                        }
+                       
                     </View>
                 </View>
                 <View style={{ flex: 1, backgroundColor: '#ffff', paddingTop: 10 }}>
@@ -33,14 +42,15 @@ export default function CustomDrawer(props) {
                 </View>
             </DrawerContentScrollView>
             <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-                <TouchableOpacity  style={{ paddingVertical: 15 }}
-                 onPress={logout}
-               >
+                <TouchableOpacity style={{ paddingVertical: 15 }}
+                    onPress={logout}
+                >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Icon name="exit-to-app" size={30} color="#52b372" />
                         <Text
                             style={{
-                                fontSize: 15,fontFamily: "Labrada-Bold",marginLeft: 5,color: 'black'}}>
+                                fontSize: 15, fontFamily: "Labrada-Bold", marginLeft: 5, color: 'black'
+                            }}>
                             Log Out
                         </Text>
                     </View>

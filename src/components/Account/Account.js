@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useContext } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Button,StyleSheet,ImageBackground} from "react-native";
 import {BottomSheetModal,BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import { Image } from 'react-native-animatable';
+import {AuthContext} from '../Account/context/AuthContext';
 
 import Icon from "react-native-vector-icons/MaterialIcons"
 import BottomSheet from 'react-native-simple-bottom-sheet';
@@ -15,6 +16,8 @@ import "react-native-gesture-handler";
 const Stack = createStackNavigator();
 
 export default function Account() {
+  const {userInfo} = useContext(AuthContext);
+
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["90%"];
@@ -35,10 +38,17 @@ export default function Account() {
           <View style={[styles.profileBox, styles.shadowProp]}>
             <Icon size={90} name="person" color="gray" />
           </View>
-          <Text style={styles.user}>User</Text>
+          {/* <Text style={styles.user}>User</Text> */}
+           {
+            userInfo.data  ?  <Text style={styles.user}>{userInfo.data.name}</Text> : <Text style={styles.user}>user</Text>
+          } 
+      
+          
+      
+          {/* <Text style={styles.user}>{userInfo.data.name}</Text> */}
         </ImageBackground>
       </View>
-      <View style={styles.Line}></View>
+      <View style={styles.Line}></View> 
       <View style={styles.AdboutBox}>
         <Icon name="error-outline" size={28} color="black" />
         <Text style={styles.About}>About</Text>

@@ -125,6 +125,7 @@ export default function SignIn({ navigation }) {
       <TouchableOpacity  
       onPress={() => {
         login(email, password);
+        navigation.navigate("Account")
       }}
       >
         <View style={styles.login}>

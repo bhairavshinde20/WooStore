@@ -198,6 +198,7 @@ export default function SignUp({ navigation }) {
         onPress={() =>{
           //  validateRegister(), 
            register(firstname, email, password, passwordconfirmation);
+           navigation.navigate("login")
           }}>
         <View style={styles.login}>
           <Text style={styles.logtitle}>Register
