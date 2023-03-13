@@ -14,8 +14,8 @@ export default function SignIn({ navigation }) {
   const [passerror, setPassError] = useState('');
   const [emaierror, setEmaiError] = useState("")
 
-  const { isLoading, login, userInfo } = useContext(AuthContext);
-
+  const { isLoading, login, userInfo, error } = useContext(AuthContext);
+  // console.log(error)
   const validation = (email, password) => {
     if (email == "") {
       setEmaiError("Email is required")
@@ -68,8 +68,10 @@ export default function SignIn({ navigation }) {
           />
           <Icon size={23} name="person-outline" color="#52b372" />
         </View>
+        {
+          emaierror && (emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : "")
+        }
 
-        {emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : null}
 
       </View>
 
@@ -108,14 +110,18 @@ export default function SignIn({ navigation }) {
             }} />
           <Icon size={23} name="remove-red-eye" color="#52b372" />
         </View>
-        {passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null}
+        {
+          passerror && (passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : "")
+        }
 
       </View>
       <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
         <Text style={styles.fotgetMain}>Forget Password</Text>
       </TouchableOpacity>
-      {/* {error ? <Text style={styles.error}>{error}</Text> : null} */}
-
+      {
+          (error ? <Text style={styles.error}>{error}</Text> : "")
+       
+      }
       <TouchableOpacity
         onPress={() => {
           if (validation(email, password)) {
