@@ -89,9 +89,9 @@ export default function SignUp({ navigation }) {
           <Icon size={23} name="person-outline" color="#52b372" />
 
         </View>
-        {fnameerror.firstname || !firstname ? <Text style={styles.error}>{fnameerror}</Text> : null}
-
-
+        {
+          fnameerror && (fnameerror.firstname || !firstname ? <Text style={styles.error}>{fnameerror}</Text> : null)
+        }
       </View>
 
       <View style={[styles.row, styles.shadowProp]}>
@@ -133,7 +133,9 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="email" color="#52b372" />
 
         </View>
-        {emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : null}
+        {
+          emaierror && (emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : null)
+        }
 
 
       </View>
@@ -174,7 +176,9 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="remove-red-eye" color="#52b372" />
 
         </View>
-        {passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null}
+        {
+          passerror && (passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null)
+        }
 
       </View>
 
@@ -214,7 +218,9 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="remove-red-eye" color="#52b372" />
 
         </View>
-        {cpasserror.passwordconfirmation || !passwordconfirmation ? <Text style={styles.error}>{cpasserror}</Text> : null}
+        {
+          cpasserror && (cpasserror.passwordconfirmation || !passwordconfirmation ? <Text style={styles.error}>{cpasserror}</Text> : null)
+        }
 
       </View>
       <TouchableOpacity

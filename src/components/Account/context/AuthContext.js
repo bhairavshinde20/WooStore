@@ -20,9 +20,9 @@ export const AuthProvider = ({ children }) => {
   // }
 
   const register = (first_name, email, password, password_confirmation) => {
-   
+
     setIsLoading(true);
-    
+
     axios.post(`${BASE_URL}/register`, {
       first_name,
       email,
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
         console.log(userInfo);
         changePage()
-            })
+      })
       .catch(e => {
         console.log(`register error ${e}`);
         setIsLoading(false);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     setIsLoading(true);
-
+    // let  error = "Invalid Email or Password"
     axios
       .post(`${BASE_URL}/login`, {
         email,
@@ -56,17 +56,22 @@ export const AuthProvider = ({ children }) => {
         if (email == email || password == password) {
           console.log("login succefull", email, password)
         }
+
         let userInfo = res.data;
         console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
+        setError("Login  Successful")
+
       })
       .catch(e => {
-        console.log(`login error ${e}`);
         setIsLoading(false);
-        // Alert.alert("Invalid Email or Password")
-      });
+        error == "error"
+        console.log(`login error ${error}`);
+        setError("Invalid Email or Password")
+      }
+      );
   };
 
   const logout = () => {
