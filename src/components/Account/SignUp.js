@@ -7,6 +7,7 @@ import "react-native-gesture-handler";
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
+
 export default function SignUp({ navigation }) {
 
   const [firstname, setFirstName] = useState('');
@@ -14,13 +15,36 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState('');
   const [passwordconfirmation, setPasswordConfirmation] = useState('');
 
-  const { isLoading, register } = useContext(AuthContext);
+  const [fnameerror, setFNameError] = useState("")
+  const [passerror, setPassError] = useState('');
+  const [emaierror, setEmaiError] = useState("")
+  const [cpasserror, setCPassErorr] = useState('')
 
-  // const validateRegister = () => {
-  //   if (firstname == "" || email == "" || password == "") {
-  //     console.log("all field are require");
-  //   }
-  // }
+  const { isLoading, register, error } = useContext(AuthContext);
+
+  const validation = (firstname, email, password, passwordconfirmation) => {
+    if (firstname == "") {
+      setFNameError("User Name is required")
+      return false;
+    }
+    if (email == "") {
+      setEmaiError("Email is required")
+      return false;
+    }
+    if (password == "") {
+      setPassError("Password is  required")
+      return false;
+    }
+    if (passwordconfirmation == "") {
+      setCPassErorr("Password is  required")
+      return false;
+    }
+    // if (toString(passwordconfirmation) === toString(password)) {
+    //   setCPassErorr("Password dosen't match")
+    //   return false;
+    // }
+    return true
+  }
   return (
 
     <View style={styles.contentContainer}>
@@ -65,7 +89,9 @@ export default function SignUp({ navigation }) {
           <Icon size={23} name="person-outline" color="#52b372" />
 
         </View>
-        {/* <Text></Text> */}
+        {fnameerror.firstname || !firstname ? <Text style={styles.error}>{fnameerror}</Text> : null}
+
+
       </View>
 
       <View style={[styles.row, styles.shadowProp]}>
@@ -107,7 +133,9 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="email" color="#52b372" />
 
         </View>
-        {/* <Text></Text> */}
+        {emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : null}
+
+
       </View>
 
       <View style={[styles.row, styles.shadowProp]}>
@@ -146,6 +174,7 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="remove-red-eye" color="#52b372" />
 
         </View>
+        {passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null}
 
       </View>
 
@@ -185,6 +214,7 @@ export default function SignUp({ navigation }) {
           <Icon size={25} name="remove-red-eye" color="#52b372" />
 
         </View>
+        {cpasserror.passwordconfirmation || !passwordconfirmation ? <Text style={styles.error}>{cpasserror}</Text> : null}
 
       </View>
       <TouchableOpacity
@@ -195,11 +225,13 @@ export default function SignUp({ navigation }) {
 
       {/* <Button title="Log In" /> */}
       <TouchableOpacity
-        onPress={() =>{
-          //  validateRegister(), 
-           register(firstname, email, password, passwordconfirmation);
-           navigation.navigate("login")
-          }}>
+        onPress={() => {
+          if (validation(firstname, email, password, passwordconfirmation)) {
+            register(firstname, email, password, passwordconfirmation);
+            navigation.navigate("SignIn")
+          }
+
+        }}>
         <View style={styles.login}>
           <Text style={styles.logtitle}>Register
 
@@ -335,5 +367,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     // marginTop:20
+  },
+  error: {
+    fontSize: 12,
+    color: 'red',
+    marginLeft: 40,
+    marginBottom: 10
   }
 });

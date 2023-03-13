@@ -1,11 +1,13 @@
-import React, { useState, useRef,useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {Button,StyleSheet,ImageBackground} from "react-native";
-import {BottomSheetModal,BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import { Button, StyleSheet, ImageBackground } from "react-native";
+import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Image } from 'react-native-animatable';
-import {AuthContext} from '../Account/context/AuthContext';
-
+import { AuthContext } from '../Account/context/AuthContext';
+// import { ImagePickerResponse,ImagePicker, launchImageLibrary } from 'react-native-image-picker';
+import { ImagePicker,launchImageLibrary } from 'react-native-image-picker';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import BottomSheet from 'react-native-simple-bottom-sheet';
 import ForgetPassword from './ForgetPassword';
@@ -16,7 +18,30 @@ import "react-native-gesture-handler";
 const Stack = createStackNavigator();
 
 export default function Account() {
-  const {userInfo} = useContext(AuthContext);
+
+  const [imageData, setImageData] = useState(null);
+
+  // const handleChoosePhoto = () => {
+  //   const options = {
+  //     noData: true,
+  //   };
+  //   ImagePickerResponse.launchImageLibrary(options, (response) => {
+  //     if (response.uri) {
+  //       console.log(response.uri)
+  //       setImageData(response);
+  //     }
+  //   });
+  // };
+  const handleChoosePhoto = () => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
+      console.log(response);
+    });
+  };
+  
+
+
+  const { userInfo, isLoading, logout } = useContext(AuthContext);
+
 
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
@@ -36,19 +61,24 @@ export default function Account() {
           source={require("../../assets/pn.jpg")}
           style={{ padding: 20, height: 170, backgroundColor: "white" }}>
           <View style={[styles.profileBox, styles.shadowProp]}>
-            <Icon size={90} name="person" color="gray" />
+            <Icon size={90} name="person" color="gray"
+              // onPress={handleChoosePhoto}
+            />
+
           </View>
           {/* <Text style={styles.user}>User</Text> */}
-           {
-            userInfo.data  ?  <Text style={styles.user}>{userInfo.data.name}</Text> : <Text style={styles.user}>user</Text>
-          } 
-      
-          
-      
+          {
+            userInfo.data ? <Text style={styles.user}>{userInfo.data.name}</Text> : <Text style={styles.user}>user</Text>
+          }
+
+
+
           {/* <Text style={styles.user}>{userInfo.data.name}</Text> */}
         </ImageBackground>
       </View>
-      <View style={styles.Line}></View> 
+      <Spinner visible={isLoading} />
+
+      <View style={styles.Line}></View>
       <View style={styles.AdboutBox}>
         <Icon name="error-outline" size={28} color="black" />
         <Text style={styles.About}>About</Text>
@@ -58,9 +88,13 @@ export default function Account() {
       </View>
       <BottomSheetModalProvider>
         <View>
+          {/* <TouchableOpacity style={styles.mainLogin} onPress={logout}>
+              <Text style={styles.MainLogin}>Log Out</Text>
+            </TouchableOpacity>  */}
           <TouchableOpacity style={styles.mainLogin} onPress={handlePresentModal}>
             <Text style={styles.MainLogin}>Log In</Text>
           </TouchableOpacity>
+
           {/* <Button title="Login"  /> */}
           <BottomSheetModal
             ref={bottomSheetModalRef}
@@ -73,7 +107,7 @@ export default function Account() {
               screenOptions={{ headerShown: false }}>
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="ForgetPassword" component={ForgetPassword}/>
+              <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
             </Stack.Navigator>
           </BottomSheetModal>
         </View>

@@ -1,38 +1,47 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, {createContext, useEffect, useState} from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import {BASE_URL} from '../Congig';
+import { BASE_URL } from '../Congig';
+import { useNavigation } from '@react-navigation/native';
 
 export const AuthContext = createContext();
 
-export  const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
   const [splashLoading, setSplashLoading] = useState(false);
+  const [error, setError] = useState('')
 
-  const register = (first_name, email, password,password_confirmation) => {
-       setIsLoading(true);
+  // const navigate = useNavigation().navigate
+  // const changePage = () => {
+  //     navigate('SignIn')
+  // }
+
+  const register = (first_name, email, password, password_confirmation) => {
    
-        axios.post(`${BASE_URL}/register`, {
-        first_name,
-        email,
-        password,
-        password_confirmation,
-      })
+    setIsLoading(true);
+    
+    axios.post(`${BASE_URL}/register`, {
+      first_name,
+      email,
+      password,
+      password_confirmation,
+    })
       .then(res => {
         let userInfo = res.data;
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
         console.log(userInfo);
-      })    
+        changePage()
+            })
       .catch(e => {
         console.log(`register error ${e}`);
         setIsLoading(false);
       });
-// navigate()
+    // navigate()
   };
 
   const login = (email, password) => {
@@ -44,24 +53,19 @@ export  const AuthProvider = ({children}) => {
         password,
       })
       .then(res => {
-        if(email == email || password == password){
-            console.log("login succefull",email,password)
+        if (email == email || password == password) {
+          console.log("login succefull", email, password)
         }
-        // else{
-        //     console.log("wroen cradationals" );
-        // }
         let userInfo = res.data;
-        
         console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
-      //  console.log("es,cjbsjdb"+error)
       })
       .catch(e => {
         console.log(`login error ${e}`);
         setIsLoading(false);
-        Alert.alert("Invalid Email or Password")
+        // Alert.alert("Invalid Email or Password")
       });
   };
 
@@ -69,10 +73,10 @@ export  const AuthProvider = ({children}) => {
     setIsLoading(true);
 
     axios.get(`${BASE_URL}/logout`)
-        // {},
-        // {
-        //   headers: {Authorization: `Bearer ${userInfo.access_token}`},
-        // },
+      // {},
+      // {
+      //   headers: {Authorization: `Bearer ${userInfo.access_token}`},
+      // },
       // )
       .then(res => {
         console.log(res.data);
@@ -114,6 +118,7 @@ export  const AuthProvider = ({children}) => {
         isLoading,
         userInfo,
         splashLoading,
+        error,
         register,
         login,
         logout,

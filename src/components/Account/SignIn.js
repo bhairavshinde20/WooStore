@@ -1,6 +1,6 @@
-import {StyleSheet,Text,View,TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { FloatingLabelInput } from "react-native-floating-label-input";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 import Icon from "react-native-vector-icons/MaterialIcons"
@@ -9,31 +9,24 @@ import "react-native-gesture-handler";
 import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function SignIn({ navigation }) {
-
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { isLoading, login } = useContext(AuthContext);
+  const [passerror, setPassError] = useState('');
+  const [emaierror, setEmaiError] = useState("")
 
-  // const [passerr,setPassErr] = useState('')
-  // const [emailerr,setEmailErr] = useState('')
-  // const [errorMessage, setErrorMessage] = useState('');
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await axios.post('https://parind.online/parind4/public/api/customer/login?email=ismailkarbhari91@gmail.com&password=Ismail@1234', {
-  //       email,
-  //       password,
-  //     });
-  //     console.log(response.data);
-  //     setError('');
-  //   } catch (err) {
-  //     console.log(err);
-  //     setError('Invalid email or password');
-  //   }
-  //   // setEmail("");
-  //   // setPassword("");
-  // };
+  const { isLoading, login, userInfo } = useContext(AuthContext);
+
+  const validation = (email, password) => {
+    if (email == "") {
+      setEmaiError("Email is required")
+      return false;
+    }
+    if (password == "") {
+      setPassError("Password is  required")
+      return false;
+    }
+    return true
+  }
   return (
 
     <View style={styles.contentContainer}>
@@ -54,7 +47,7 @@ export default function SignIn({ navigation }) {
           />
           <Icon size={25} name="person-outline" color="#52b372" /> */}
           <FloatingLabelInput
-            label={'Username'}
+            label={'Email'}
             value={email}
             keyboardType="email-address"
             textContentType="emailAddress"
@@ -76,7 +69,7 @@ export default function SignIn({ navigation }) {
           <Icon size={23} name="person-outline" color="#52b372" />
         </View>
 
-        {/* {emailerr ? <Text style={styles.error}>{emailerr}</Text> : null} */}
+        {emaierror.email || !email ? <Text style={styles.error}>{emaierror}</Text> : null}
 
       </View>
 
@@ -115,18 +108,20 @@ export default function SignIn({ navigation }) {
             }} />
           <Icon size={23} name="remove-red-eye" color="#52b372" />
         </View>
+        {passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null}
 
       </View>
       <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
-        <Text style={styles.fotgetMain}> Forget Password</Text>
+        <Text style={styles.fotgetMain}>Forget Password</Text>
       </TouchableOpacity>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {/* {error ? <Text style={styles.error}>{error}</Text> : null} */}
 
-      <TouchableOpacity  
-      onPress={() => {
-        login(email, password);
-        navigation.navigate("Account")
-      }}
+      <TouchableOpacity
+        onPress={() => {
+          if (validation(email, password)) {
+            login(email, password);
+          }
+        }}
       >
         <View style={styles.login}>
           <Text style={styles.logtitle}>LogIn
@@ -141,11 +136,18 @@ export default function SignIn({ navigation }) {
           onPress={() => navigation.navigate("SignUp")}
         >SignUp now</Text>
       </TouchableOpacity>
+      {
+        // console.log("sfvndifvknbf " + userInfo.message)
+
+        // userInfo.message ? <TouchableOpacity>
+        //   <Text style={styles.forget}
+
+        //   >{userInfo.message}</Text>
+        // </TouchableOpacity> : <Text></Text>
+      }
+      <Text></Text>
 
     </View>
-
-
-
   )
 }
 
@@ -264,7 +266,7 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginLeft: 35,
-    // marginBottom:10
+    marginBottom: 10
     // paddingBottom:10
   },
 });

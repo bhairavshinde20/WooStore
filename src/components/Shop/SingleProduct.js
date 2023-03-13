@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity, FlatList } from 'react-native'
 import React, { useCallback, useState, useMemo, useRef } from 'react'
 import { ImageSlider } from 'react-native-image-slider-banner'
 import { useSelector } from 'react-redux';
@@ -9,14 +9,24 @@ import axios from 'axios';
 
 
 export default function SingleProduct() {
-    // const item = useSelector(state => state.cart.cart);
-    // console.log(item);
+    const item = useSelector(state => state.cart.cart);
+    console.log(item);
+    let myKeysArr = [];
+    myKeysArr.push(item);
     return (
         <View style={styles.container}>
+            {/* <FlatList
+                data={myKeysArr}
+                renderItem={({ item }) => {
+                    let price = parseFloat(item.price).toFixed(2);
+                    return (
+                        <> */}
+
+
             <View style={styles.ImgContainer}>
                 <Image
                     style={styles.mainImg}
-                    //   source={{ uri: item.base_image.medium_image_url }}
+                    // source={{ uri: item.base_image.medium_image_url }}
                     source={require("../../assets/main.jpeg")}
                 />
             </View>
@@ -46,7 +56,8 @@ export default function SingleProduct() {
                     <Image
                         style={[styles.ImagView, styles.Img4view]}
                         // source={{ uri: item.base_image.original_image_url }}
-                        source={require("../../assets/main.jpeg")} />
+                        source={require("../../assets/main.jpeg")}
+                    />
                 </View>
             </View>
             <View style={styles.CatConatiner}>
@@ -80,6 +91,11 @@ export default function SingleProduct() {
                     {/* </View> */}
                 </TouchableOpacity>
             </View>
+            {/* </>
+                    );
+                }
+                }
+            /> */}
 
         </View>
     )
