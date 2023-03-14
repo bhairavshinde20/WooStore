@@ -3,21 +3,17 @@ import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { BASE_URL } from '../Congig';
-import { useNavigation } from '@react-navigation/native';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({});
-
+  const [cookies, setCookies] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [splashLoading, setSplashLoading] = useState(false);
   const [error, setError] = useState('')
 
-  // const navigate = useNavigation().navigate
-  // const changePage = () => {
-  //     navigate('SignIn')
-  // }
+
 
   const register = (first_name, email, password, password_confirmation) => {
 
@@ -35,13 +31,12 @@ export const AuthProvider = ({ children }) => {
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
         console.log(userInfo);
-        changePage()
       })
       .catch(e => {
         console.log(`register error ${e}`);
         setIsLoading(false);
       });
-    // navigate()
+
   };
 
   const login = (email, password) => {
@@ -62,8 +57,10 @@ export const AuthProvider = ({ children }) => {
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
-        setError("Login  Successful")
+        console.log('cookie', res.headers["set-cookie"][0].split(";")[0]);
+        setCookies(res.headers["set-cookie"][0].split(";")[0]);
 
+        setError("Login  Successful")
       })
       .catch(e => {
         setIsLoading(false);
@@ -77,12 +74,42 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoading(true);
 
-    axios.get(`${BASE_URL}/logout`)
-      // {},
-      // {
-      //   headers: {Authorization: `Bearer ${userInfo.access_token}`},
-      // },
-      // )
+    // axios.get(`${BASE_URL}/logout`, {
+    //   'Cookie': cookies
+    // })
+    //   // {},
+    //   // {
+    //   //   headers: {Authorization: `Bearer ${userInfo.access_token}`},
+    //   // },
+    //   // )
+
+    //   .then(res => {
+    //     console.log(res.data);
+    //     AsyncStorage.removeItem('userInfo');
+    //     setUserInfo(userInfo);
+    //     setIsLoading(false);
+
+
+    //   })
+    //   .catch(e => {
+    //     console.log("header error =>.", cookies);
+    //     console.log(`logout error, ${e}`);
+    //     setIsLoading(false);
+    //   });
+
+
+    axios
+      .get(
+        `${BASE_URL}/logout`,
+        {},
+        
+        {
+          headers: { "Cookie": cookies.cookieString
+          // Authorization: `Bearer ${userInfo.access_token}`
+         },
+          // Authorization: `Bearer ${userInfo.access_token}`,
+        },
+      )
       .then(res => {
         console.log(res.data);
         AsyncStorage.removeItem('userInfo');
@@ -91,8 +118,35 @@ export const AuthProvider = ({ children }) => {
       })
       .catch(e => {
         console.log(`logout error ${e}`);
+        console.log("header error =>.", cookies);
         setIsLoading(false);
       });
+
+
+
+
+
+    // var config = {
+    //   method: 'get',
+    //   maxBodyLength: Infinity,
+    //   url: `${BASE_URL}/logout`,
+    //   headers: {
+    //     'Cookie': cookies
+    //   }
+    // };
+    // console.log(JSON.stringify(config))
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log("testing data =>", JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log("cookies =>",cookies);
+    //     console.log("ksdbvjshb"+ error);
+    //   });
+
+
+
+
   };
 
   const isLoggedIn = async () => {

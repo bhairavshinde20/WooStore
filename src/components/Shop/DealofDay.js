@@ -29,6 +29,7 @@ export default function DealofDay() {
     const FetchSingleProducts = (item) => {
         return (
             dispatch(ViewSingleProduct(item))
+            // console.log(item)
         )
     }
 

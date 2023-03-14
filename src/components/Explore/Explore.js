@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet,FlatList } from 'react-native'
+import * as React from "react";
+import { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, FlatList, TextInput } from 'react-native'
 import { Image } from 'react-native-animatable'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,11 +9,14 @@ import { ViewSingleProduct } from '../../redux/reducer/Product'
 import axios from 'axios'
 import Skeleton from '@thevsstech/react-native-skeleton';
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { useNavigation } from '@react-navigation/native'
 
 
-export default function Explore({ navigation }) {
-  const [featureddata, setFeaturedData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+export default function Explore() {
+  const [featureddata, setFeaturedData] = React.useState([]);
+  const [searchdata, setSearchData] = React.useState([]);
+  const [isLoading, setLoading] = React.useState(true);
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
 
   const item = useSelector(state => state.data.data);
@@ -26,11 +30,13 @@ export default function Explore({ navigation }) {
 
 
   useEffect(() => {
-    axios.get('https://parind.online/parind/public/api/products?featured&limit=12')
+    axios.get('https://parind.online/parind/public/api/products?featured&limit=50')
       .then(async (res) => {
         const featuredProduct = await res.data.data; ``
         // console.log(featuredProduct);
         setFeaturedData(featuredProduct);
+        setSearchData(featuredProduct);
+
       }).catch((err) => console.log(err))
       .finally(() => setLoading(false))
   }, [])
@@ -40,14 +46,45 @@ export default function Explore({ navigation }) {
   const mainfeaturedapidata = newfeaturedapidata[0];
   // console.log(mainfeaturedapidata);
 
+  const navigation = useNavigation()
 
+  // React.useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerLargeTitle: true,
+  //     headerSearchBarOptions: {
+  //       placeHolder: "Search"
+  //     }
+
+  //   });
+
+  // }, [navigation])
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = featureddata.filter((item) => {
+        const itemData = item.name ?
+          item.name.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+
+      });
+      setFeaturedData(newData);
+      setSearch(text);
+    } else {
+      setFeaturedData(searchdata);
+      setSearch(text);
+    }
+
+  }
 
   return (
     <ScrollView>
       <View>
         {/* <Text style={styles.coupons}> Deal of Day</Text> */}
+
         <View style={styles.conatiner}>
           <Text style={styles.coupons}>Product</Text>
+          <TextInput style={styles.SerachBar} value={search} placeholder="Search here" placeholderTextColor="black" underlineColorAndroid="transparent" onChangeText={(text) => searchFilter(text)} />
           <View style={{ width: "100%", alignSelf: "center", flexDirection: 'row' }}>
             {
               isLoading ?
@@ -57,7 +94,7 @@ export default function Explore({ navigation }) {
                     <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
                     <Skeleton.Item alignItems="center" width={230} height={260} marginLeft={20} borderRadius={20} marginTop={20} />
                   </Skeleton.Item>
-              </Skeleton>
+                </Skeleton>
                 :
 
                 <FlatList
@@ -72,18 +109,18 @@ export default function Explore({ navigation }) {
                             FetchSingleProducts(item)
                           )}
                         > */}
-                          <View style={styles.MainImgBox}
+                        <View style={styles.MainImgBox}
                           onPress={() =>
                             navigation.navigate(
                               `Singleproduct`,
                               FetchSingleProducts(item)
                             )}
-                          >
-                            <Image
-                              source={{ uri: item.base_image.small_image_url }}
-                              // source={require("../../assets/mainlogo.jpeg")} 
-                              style={styles.img} />
-                          </View>
+                        >
+                          <Image
+                            source={{ uri: item.base_image.small_image_url }}
+                            // source={require("../../assets/mainlogo.jpeg")} 
+                            style={styles.img} />
+                        </View>
                         {/* </Pressable> */}
                         <View style={{ flex: 1, flexDirection: "row" }}>
                           <View style={{ width: 100 }}>
@@ -178,5 +215,15 @@ const styles = StyleSheet.create({
     marginLeft: 55,
     alignItems: "center",
     justifyContent: "center",
+  },
+  SerachBar: {
+    height: 60,
+    width: 400,
+    borderWidth: 1,
+    borderColor: "black",
+    alignSelf: "center",
+    padding: 20,
+    color:"black",
+    fontFamily: "Labrada-Bold",
   },
 })

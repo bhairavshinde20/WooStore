@@ -24,7 +24,7 @@ export default function Tranding() {
     const FetchSingleProducts = (item) => {
         return (
             dispatch(ViewSingleProduct(item))
-            // console.log(id)
+            // console.log(item)
         )
     }
 

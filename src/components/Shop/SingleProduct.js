@@ -9,93 +9,92 @@ import axios from 'axios';
 
 
 export default function SingleProduct() {
-    const item = useSelector(state => state.cart.cart);
+    const item = useSelector(state => state.data.data);
     console.log(item);
     let myKeysArr = [];
     myKeysArr.push(item);
+    console.log(myKeysArr)
     return (
         <View style={styles.container}>
-            {/* <FlatList
+            <FlatList
                 data={myKeysArr}
                 renderItem={({ item }) => {
                     let price = parseFloat(item.price).toFixed(2);
                     return (
-                        <> */}
-
-
-            <View style={styles.ImgContainer}>
-                <Image
-                    style={styles.mainImg}
-                    // source={{ uri: item.base_image.medium_image_url }}
-                    source={require("../../assets/main.jpeg")}
-                />
-            </View>
-            <View style={styles.Img4Container}>
-                <View style={styles.Img1Container}>
-                    <Image
-                        style={styles.ImagView}
-                        // source={{ uri: item.base_image.small_image_url }}
-                        source={require("../../assets/main.jpeg")}
-                    />
-                </View>
-                <View style={styles.Img1Container}>
-                    <Image
-                        style={styles.ImagView}
-                        // source={{ uri: item.base_image.medium_image_url }}
-                        source={require("../../assets/main.jpeg")}
-                    />
-                </View>
-                <View style={styles.Img1Container}>
-                    <Image
-                        style={styles.ImagView}
-                        // source={{ uri: item.base_image.large_image_url }}
-                        source={require("../../assets/main.jpeg")}
-                    />
-                </View>
-                <View style={styles.Img1Container}>
-                    <Image
-                        style={[styles.ImagView, styles.Img4view]}
-                        // source={{ uri: item.base_image.original_image_url }}
-                        source={require("../../assets/main.jpeg")}
-                    />
-                </View>
-            </View>
-            <View style={styles.CatConatiner}>
-                <Text style={styles.cat}>category_name</Text>
-                <Text style={styles.price}>$ 20.00</Text>
-            </View>
-            <View style={styles.CatConatiner}>
-                <Text style={styles.Product}>Product Name</Text>
-                <Text style={styles.price}></Text>
-            </View>
-            <View style={{ borderBottomWidth: 1, borderColor: "gray" }}></View>
-            <View style={[styles.ProductDBox, styles.shadowProp]}>
-                <Text style={styles.productDexBox}>Product Decription:</Text>
-                <Text style={{ color: "black", fontSize: 13, padding: 10 }}>
-                    Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes, along with exposition, argumentation, and narration.
-                </Text>
-            </View>
-            <View style={[styles.GrrenBox, styles.shadowProp]}>
-                <View style={{ width: "50%", flexDirection: "row", justifyContent: 'space-around' }}>
-                    <View style={styles.IconBox}>
-                        <Icon name="share" size={30} color="black" />
-                    </View>
-                    <View style={styles.IconBox}>
-                        <Icon name="favorite-border" size={30} color="black" />
-                    </View>
-                </View>
-                <TouchableOpacity style={styles.cartBox}>
-                    {/* <View style={styles.cartBox}> */}
-                    <Icon name="add-shopping-cart" size={30} color="white" />
-                    <Text style={styles.ViewC}>View Cart</Text>
-                    {/* </View> */}
-                </TouchableOpacity>
-            </View>
-            {/* </>
+                        <>
+                            <View style={styles.ImgContainer}>
+                                <Image
+                                    style={styles.mainImg}
+                                    source={{ uri: item.base_image.medium_image_url }}
+                                // source={require("../../assets/main.jpeg")}
+                                />
+                            </View>
+                            <View style={styles.Img4Container}>
+                                <View style={styles.Img1Container}>
+                                    <Image
+                                        style={styles.ImagView}
+                                        source={{ uri: item.base_image.small_image_url }}
+                                        // source={require("../../assets/main.jpeg")}
+                                    />
+                                </View>
+                                <View style={styles.Img1Container}>
+                                    <Image
+                                        style={styles.ImagView}
+                                        source={{ uri: item.base_image.medium_image_url }}
+                                        // source={require("../../assets/main.jpeg")}
+                                    />
+                                </View>
+                                <View style={styles.Img1Container}>
+                                    <Image
+                                        style={styles.ImagView}
+                                        source={{ uri: item.base_image.large_image_url }}
+                                        // source={require("../../assets/main.jpeg")}
+                                    />
+                                </View>
+                                <View style={styles.Img1Container}>
+                                    <Image
+                                        style={[styles.ImagView, styles.Img4view]}
+                                        source={{ uri: item.base_image.original_image_url }}
+                                        // source={require("../../assets/main.jpeg")}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.CatConatiner}>
+                                <Text style={styles.cat}>{item.category_name}</Text>
+                                <Text style={styles.price}>${price}</Text>
+                            </View>
+                            <View style={styles.CatConatiner}>
+                                <Text style={styles.Product}>{item.name}</Text>
+                                <Text style={styles.price}></Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 1, borderColor: "gray" }}></View>
+                            <View style={[styles.ProductDBox, styles.shadowProp]}>
+                                <Text style={styles.productDexBox}>Product Decription:</Text>
+                                <Text style={{ color: "black", fontSize: 13, padding: 10 }}>
+                                    Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes, along with exposition, argumentation, and narration.
+                                </Text>
+                            </View>
+                            <View style={[styles.GrrenBox, styles.shadowProp]}>
+                                <View style={{ width: "50%", flexDirection: "row", justifyContent: 'space-around' }}>
+                                    <View style={styles.IconBox}>
+                                        <Icon name="share" size={30} color="black" />
+                                    </View>
+                                    <View style={styles.IconBox}>
+                                        <Icon name="favorite-border" size={30} color="black" />
+                                    </View>
+                                </View>
+                                <TouchableOpacity style={styles.cartBox}>
+                                    {/* <View style={styles.cartBox}> */}
+                                    <Icon name="add-shopping-cart" size={30} color="white" />
+                                    <Text style={styles.ViewC}>View Cart</Text>
+                                    {/* </View> */}
+                                </TouchableOpacity>
+                            </View>
+                        </>
                     );
                 }
                 }
-            /> */}
+            />
 
         </View>
     )
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: 10
+        // marginBottom: 10
 
     },
     cat: {

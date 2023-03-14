@@ -45,7 +45,7 @@ export default function Account() {
 
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
-  const snapPoints = ["90%"];
+  const snapPoints = ["96%"];
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
     setTimeout(() => {
@@ -116,6 +116,7 @@ export default function Account() {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   profileBox: {
     height: 160,

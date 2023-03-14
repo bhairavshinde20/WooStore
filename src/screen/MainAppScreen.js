@@ -1,7 +1,8 @@
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack';
+// import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { AppBar, HStack, IconButton } from "@react-native-material/core";
 import React, { useState, useRef } from 'react';
@@ -23,7 +24,7 @@ import CheckOut from '../components/Cart/CheckOut'
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 // function clickTabBarItem(tabIndex, navigation) {
 //   const event = navigation.emit({
@@ -183,7 +184,7 @@ const HomeScreenStack = ({ navigation }) => {
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
       <Stack.Screen name="Coupons" component={Coupons} />
-      <Stack.Screen name="Singleproduct" component={SingleProduct} />
+      <Stack.Screen name="Singleproduct"  component={SingleProduct}  />
     </Stack.Navigator>
   );
 };

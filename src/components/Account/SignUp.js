@@ -9,7 +9,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 
 export default function SignUp({ navigation }) {
-
+  // Your account has been created successfully
   const [firstname, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +19,8 @@ export default function SignUp({ navigation }) {
   const [passerror, setPassError] = useState('');
   const [emaierror, setEmaiError] = useState("")
   const [cpasserror, setCPassErorr] = useState('')
+
+  const [conformpass,setConformPass] = useState("")
 
   const { isLoading, register, error } = useContext(AuthContext);
 
@@ -36,13 +38,13 @@ export default function SignUp({ navigation }) {
       return false;
     }
     if (passwordconfirmation == "") {
-      setCPassErorr("Password is  required")
+      setCPassErorr("Conform  password is  required")
       return false;
     }
-    // if (toString(passwordconfirmation) === toString(password)) {
-    //   setCPassErorr("Password dosen't match")
-    //   return false;
-    // }
+    if (toString(passwordconfirmation) === toString(password)) {
+      setConformPass("Password dosen't match")
+      return false;
+    }
     return true
   }
   return (
@@ -177,7 +179,7 @@ export default function SignUp({ navigation }) {
 
         </View>
         {
-          passerror && (passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null)
+         passerror && ( passerror.password || !password ? <Text style={styles.error}>{passerror}</Text> : null)
         }
 
       </View>
@@ -221,6 +223,9 @@ export default function SignUp({ navigation }) {
         {
           cpasserror && (cpasserror.passwordconfirmation || !passwordconfirmation ? <Text style={styles.error}>{cpasserror}</Text> : null)
         }
+        {/* {
+          conformpass && (conformpass.passwordconfirmation || !passwordconfirmation) ? <Text style={styles.error}>{conformpass}</Text> : null
+        } */}
 
       </View>
       <TouchableOpacity
@@ -246,7 +251,7 @@ export default function SignUp({ navigation }) {
         </View>
 
       </TouchableOpacity>
-      <Text style={styles.Dont}>Don't have Unify Account</Text>
+      <Text style={styles.Dont}>Do have Unify Account then</Text>
 
       <TouchableOpacity
         onPress={() => navigation.navigate("SignIn")}

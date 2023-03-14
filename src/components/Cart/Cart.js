@@ -25,7 +25,7 @@ export default function Cart({ navigation }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetModalRef = useRef(null);
-  const snapPoints = ["40%"];
+  const snapPoints = ["35%"];
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
     setTimeout(() => {
@@ -80,11 +80,11 @@ export default function Cart({ navigation }) {
 
                     </View>
                   </TouchableOpacity>
-                  <Text>ss</Text>
+                  <Text style={{color:"white"}}> ss</Text>
                   <View>
                     <Text style={{ color: "black", fontFamily: "Labrada-Bold", fontSize: 30 }}>{item.quantity}</Text>
                   </View>
-                  <Text>ss</Text>
+                  <Text style={{color:"white"}}>ss</Text>
                   <TouchableOpacity onPress={() => increament(item)}>
                     <View style={{ width: 30, height: 30, borderWidth: 1, borderRadius: 20, alignSelf: "center", alignItems: "center", justifyContent: "center" }}>
                       <Icon name="expand-less" size={20} color="#52b372" />
@@ -158,9 +158,8 @@ export default function Cart({ navigation }) {
                 {/* <Text style={{ color: "black" }}> $ 4.47</Text> */}
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="payment" size={25} color="black" />
-                  <Text>slnin</Text>
+                  <Text style={{color:"white"}}>slnin</Text>
                   <Icon name="arrow-forward-ios" size={25} color="black" />
-
                 </View>
               </View>
               <View style={{ borderBottomColor: "gray", borderBottomWidth: 1, marginTop: 10 }}></View>
