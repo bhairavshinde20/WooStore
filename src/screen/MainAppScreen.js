@@ -181,6 +181,7 @@ const HomeScreenStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       initialRouteName="Shop"
+      
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
       <Stack.Screen name="Coupons" component={Coupons} />
@@ -258,6 +259,7 @@ export default function MainAppScreen() {
         name="HomeScreenStack"
         options={{
           drawerLabel: 'Shop',
+         
           title: 'Shop',
           drawerIcon: ({ color }) => (
             <Icon name="storefront" size={30} color="#52b372" />)

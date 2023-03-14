@@ -1,19 +1,25 @@
 import { View, Text, StyleSheet, Button, Image, TouchableOpacity, FlatList } from 'react-native'
 import React, { useCallback, useState, useMemo, useRef } from 'react'
 import { ImageSlider } from 'react-native-image-slider-banner'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BottomSheetModal, BottomSheetModalProvider, } from "@gorhom/bottom-sheet";
-
+import { addToFav } from '../../redux/reducer/Favroit';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import axios from 'axios';
 
 
 export default function SingleProduct() {
     const item = useSelector(state => state.data.data);
-    console.log(item);
+    // console.log(item);
     let myKeysArr = [];
     myKeysArr.push(item);
-    console.log(myKeysArr)
+    // console.log(myKeysArr)
+    const dispatch = useDispatch();
+
+    const AddtoFavroit = item => {
+        dispatch(addToFav(item))
+            // console.log(item);
+    }
     return (
         <View style={styles.container}>
             <FlatList
@@ -34,28 +40,28 @@ export default function SingleProduct() {
                                     <Image
                                         style={styles.ImagView}
                                         source={{ uri: item.base_image.small_image_url }}
-                                        // source={require("../../assets/main.jpeg")}
+                                    // source={require("../../assets/main.jpeg")}
                                     />
                                 </View>
                                 <View style={styles.Img1Container}>
                                     <Image
                                         style={styles.ImagView}
                                         source={{ uri: item.base_image.medium_image_url }}
-                                        // source={require("../../assets/main.jpeg")}
+                                    // source={require("../../assets/main.jpeg")}
                                     />
                                 </View>
                                 <View style={styles.Img1Container}>
                                     <Image
                                         style={styles.ImagView}
                                         source={{ uri: item.base_image.large_image_url }}
-                                        // source={require("../../assets/main.jpeg")}
+                                    // source={require("../../assets/main.jpeg")}
                                     />
                                 </View>
                                 <View style={styles.Img1Container}>
                                     <Image
                                         style={[styles.ImagView, styles.Img4view]}
                                         source={{ uri: item.base_image.original_image_url }}
-                                        // source={require("../../assets/main.jpeg")}
+                                    // source={require("../../assets/main.jpeg")}
                                     />
                                 </View>
                             </View>
@@ -80,8 +86,16 @@ export default function SingleProduct() {
                                         <Icon name="share" size={30} color="black" />
                                     </View>
                                     <View style={styles.IconBox}>
-                                        <Icon name="favorite-border" size={30} color="black" />
+                                        <TouchableOpacity
+                                            onPress={() => AddtoFavroit(item)}
+                                        >
+
+                                            <Icon name="favorite-border" size={30} color="black" />
+                                        </TouchableOpacity>
+
                                     </View>
+
+
                                 </View>
                                 <TouchableOpacity style={styles.cartBox}>
                                     {/* <View style={styles.cartBox}> */}

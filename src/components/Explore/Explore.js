@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, FlatList, TextInput } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TextInput, Pressable } from 'react-native'
 import { Image } from 'react-native-animatable'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useDispatch, useSelector } from 'react-redux'
@@ -77,6 +77,7 @@ export default function Explore() {
 
   }
 
+
   return (
     <ScrollView>
       <View>
@@ -102,39 +103,41 @@ export default function Explore() {
                   renderItem={({ item }, index) => {
 
                     return (
-                      <View style={[styles.ImageBox, styles.shadowProp]}>
-                        {/* <Pressable onPress={() =>
+                      <Pressable
+                        onPress={() =>
                           navigation.navigate(
                             `Singleproduct`,
                             FetchSingleProducts(item)
                           )}
-                        > */}
-                        <View style={styles.MainImgBox}
-                          onPress={() =>
-                            navigation.navigate(
-                              `Singleproduct`,
-                              FetchSingleProducts(item)
-                            )}
-                        >
-                          <Image
-                            source={{ uri: item.base_image.small_image_url }}
-                            // source={require("../../assets/mainlogo.jpeg")} 
-                            style={styles.img} />
-                        </View>
-                        {/* </Pressable> */}
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                          <View style={{ width: 100 }}>
-                            <Text style={styles.name}>{item.name}</Text>
-                            <Text></Text>
-                            {/* <Text style={styles.name}></Text> */}
+                      >
+                        <View style={[styles.ImageBox, styles.shadowProp]}>
+                          <View style={styles.MainImgBox}
+                          >
+                            <Image
+                              source={{ uri: item.base_image.small_image_url }}
+                              // source={require("../../assets/mainlogo.jpeg")} 
+                              style={styles.img} />
                           </View>
-                          <TouchableOpacity>
-                            <View style={styles.iconBox}>
-                              <Icon name="arrow-right-alt" size={28} color="white" />
+                          <View style={{ flex: 1, flexDirection: "row" }}>
+                            <View style={{ width: 100 }}>
+                              <Text style={styles.name}>{item.name}</Text>
+                              <Text></Text>
+                              {/* <Text style={styles.name}></Text> */}
                             </View>
-                          </TouchableOpacity>
+                            <TouchableOpacity
+                              onPress={() =>
+                                navigation.navigate(
+                                  `Singleproduct`,
+                                  FetchSingleProducts(item)
+                                )}
+                            >
+                              <View style={styles.iconBox}>
+                                <Icon name="arrow-right-alt" size={28} color="white" />
+                              </View>
+                            </TouchableOpacity>
+                          </View>
                         </View>
-                      </View>
+                      </Pressable>
                     )
 
 
@@ -223,7 +226,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     alignSelf: "center",
     padding: 20,
-    color:"black",
+    color: "black",
     fontFamily: "Labrada-Bold",
   },
 })

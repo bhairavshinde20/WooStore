@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     container:{
         // flex:1,
+        backgroundColor:"white"
     },
     ImageBox: {
         width: 230,
@@ -57,5 +58,11 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
       },
+      ImgStyle:{
+        width:"100%",
+        height:368,
+        alignSelf: "center"
+
+      }
 
 })
